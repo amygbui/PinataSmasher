@@ -17,6 +17,9 @@ Users will be able to:
 * Canvas
 * Webpack
 
+## Design Documents
+[View Wireframes](https://github.com/amygbui/pinata_smasher/tree/master/wireframes)
+
 ## Implementation Timeline
 Wednesday: Finish up fleshing out ideas/wireframes. Finish research libraries and get artwork. Learn more about Canvas and Create.js. Set up game board on screen and get piñata to render on top of screen.
 
