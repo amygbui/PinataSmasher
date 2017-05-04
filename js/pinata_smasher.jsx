@@ -1,3 +1,5 @@
+import Pinata from './pinata';
+
 document.addEventListener('DOMContentLoaded', () => {
   const canvas = document.getElementById('pinata');
   const stage = new createjs.Stage(canvas);
@@ -6,7 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
   text.x = 275;
   text.y = 100;
 
-  const pinata = new createjs.Bitmap('./images/pinatas/vonroo.gif');
+  const pinata = new Pinata().random();
+  // const pinata = new createjs.Bitmap('./images/pinatas/vonroo.gif');
   pinata.x = 100;
   pinata.y = 300;
 
