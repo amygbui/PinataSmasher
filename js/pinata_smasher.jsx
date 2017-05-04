@@ -11,5 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // const projectile3 = new Projectile(canvas, stage);
 
   const game = new Game(canvas, stage);
+
+  const score = new createjs.Text(`Score: ${game.score}`, "bold 40px Arial", "#000000")
+  score.x = 50;
+  score.y = 30;
+  stage.addChild(score);
+
   window.stage = stage;
 });

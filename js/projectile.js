@@ -9,7 +9,7 @@ class Projectile {
     this.setVelocity();
 
     stage.addChild(this.pinata);
-    window.setInterval(this.tick, 25);
+    this.interval = setInterval(this.tick, 25);
     this.time = 0;
   }
 
@@ -25,7 +25,7 @@ class Projectile {
     const pinata = new createjs.Bitmap(pinataImages[randomKey]);
 
     pinata.x = Math.round(Math.random() * this.canvas.width);
-    pinata.y = 650;
+    pinata.y = 750;
     this.pinata = pinata;
   }
 
@@ -33,7 +33,7 @@ class Projectile {
     this.x_velocity = Math.random() * 8 * this.xDirection;
     this.y_velocity = Math.random() * 14;
 
-    while (this.y_velocity < 8) {
+    while (this.y_velocity < 10) {
       this.y_velocity = Math.random() * 14;
     }
   }
@@ -47,8 +47,9 @@ class Projectile {
     pinata.y = pinata.y - (time * (this.y_velocity - (4.9 * time)));
     pinata.x = pinata.x + this.x_velocity;
 
-    if (pinata.y > 950) {
+    if (pinata.y > 750) {
       this.stage.removeChild(pinata);
+      clearInterval(this.interval);
     }
 
     this.stage.update(event);

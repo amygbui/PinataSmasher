@@ -4,6 +4,7 @@ class Game {
   constructor(canvas, stage) {
     this.canvas = canvas;
     this.stage = stage;
+    this.score = 0;
     this.generatePinatas = this.generatePinatas.bind(this);
 
     window.setInterval(this.generatePinatas, 3000);
