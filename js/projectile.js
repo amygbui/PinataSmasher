@@ -1,32 +1,21 @@
+import Pinata from './pinata';
+
 class Projectile {
-  constructor(canvas, stage) {
+  constructor(canvas, stage, score) {
     this.canvas = canvas;
     this.stage = stage;
     this.tick = this.tick.bind(this);
+    this.delete = this.delete.bind(this);
 
-    this.generatePinata();
+    this.interval = setInterval(this.tick, 25);
+    this.time = 0;
+
+    this.PinataClass = new Pinata(canvas, stage, score);
+    this.pinata = this.PinataClass.generatePinata();
     this.xDirection = this.pinata.x > canvas.width / 2 ? -1 : 1;
     this.setVelocity();
 
     stage.addChild(this.pinata);
-    this.interval = setInterval(this.tick, 25);
-    this.time = 0;
-  }
-
-  generatePinata() {
-    const pinataImages = {
-      0: './images/pinatas/vonroo.gif',
-      1: './images/pinatas/pantdevil.gif',
-      2: './images/pinatas/llama.gif',
-      3: './images/pinatas/vira.gif'
-    }
-
-    const randomKey = Math.round(Math.random() * 4);
-    const pinata = new createjs.Bitmap(pinataImages[randomKey]);
-
-    pinata.x = Math.round(Math.random() * this.canvas.width);
-    pinata.y = 750;
-    this.pinata = pinata;
   }
 
   setVelocity() {
@@ -48,11 +37,14 @@ class Projectile {
     pinata.x = pinata.x + this.x_velocity;
 
     if (pinata.y > 750) {
-      this.stage.removeChild(pinata);
-      clearInterval(this.interval);
+      this.delete();
     }
 
     this.stage.update(event);
+  }
+
+  delete() {
+    this.PinataClass.deletePinata(this.pinata, this.interval);
   }
 }
 

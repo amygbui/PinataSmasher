@@ -5,6 +5,9 @@ import Game from './game';
 document.addEventListener('DOMContentLoaded', () => {
   const canvas = document.getElementById('pinata');
   const stage = new createjs.Stage(canvas);
+  stage.enableMouseOver(10);
+
+  window.stage = stage;
 
   const score = new Score(stage);
   const game = new Game(canvas, stage, score);
@@ -19,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     score.score = 0;
     score.scoreText.text = `Score: ${score.score}`;
     game.start();
-    stage.update();
+    stage.update(event);
   });
 
   start.x = 300;
@@ -30,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   setTimeout(() => {
     game.end();
+    stage.addChild(score.scoreText);
     stage.addChild(start);
   }, 60000);
 });
