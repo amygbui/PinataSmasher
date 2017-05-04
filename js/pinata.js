@@ -15,8 +15,9 @@ class Pinata {
     const randomKey = Math.round(Math.random() * 4);
     const pinata = new createjs.Bitmap(this.pinatas[randomKey]);
 
+    // pinata.x = Math.round(Math.random() * this.canvas.width);
     pinata.x = 100;
-    pinata.y = Math.round(Math.random() * this.canvas.height);
+    pinata.y = 650;
     return pinata;
   }
 }

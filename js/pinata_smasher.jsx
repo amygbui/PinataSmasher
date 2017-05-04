@@ -10,8 +10,20 @@ document.addEventListener('DOMContentLoaded', () => {
   createjs.Ticker.addEventListener("tick", tick);
   createjs.Ticker.setFPS(40);
 
+  // const y_velocity = Math.random() * 14;
+  // const x_velocity = Math.random() * 10;
+
+  const x_velocity = 5;
+  let y_velocity = Math.random() * 14;
+  while (y_velocity < 8) {
+    y_velocity = Math.random() * 14;
+  }
+
   function tick(event) {
-    pinata.x = pinata.x + 3;
+    const time = createjs.Ticker.getTime(true) / 1000;
+    pinata.y = pinata.y - ((y_velocity * time) - (0.5 * 9.8 * time * time))
+    pinata.x = pinata.x + x_velocity
     stage.update(event);
   }
+
 });
