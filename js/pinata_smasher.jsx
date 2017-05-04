@@ -1,35 +1,35 @@
 import Projectile from './projectile';
-
+import Score from './score';
 import Game from './game';
 
 document.addEventListener('DOMContentLoaded', () => {
   const canvas = document.getElementById('pinata');
   const stage = new createjs.Stage(canvas);
 
-    // const projectile = new Projectile(canvas, stage);
-    // const projectile2 = new Projectile(canvas, stage);
-    // const projectile3 = new Projectile(canvas, stage);
+  const score = new Score(stage);
+  const game = new Game(canvas, stage, score);
 
-  const game = new Game(canvas, stage);
+  const start = new createjs.Text("Click anywhere to start", "bold 30px Arial", "#000000");
+  const hit = new createjs.Shape();
+	hit.graphics.beginFill("#000").drawRect(-300, -300, canvas.width, canvas.height);
+	start.hitArea = hit;
 
-  const score = new createjs.Text(`Score: ${game.score}`, "bold 40px Arial", "#000000");
-  score.x = 50;
-  score.y = 30;
-  stage.addChild(score);
-
-  const start = new createjs.Text("Click here to start", "bold 30px Arial", "#000000");
   start.addEventListener("click", (e) => {
     stage.removeChild(start);
+    score.score = 0;
+    score.scoreText.text = `Score: ${score.score}`;
     game.start();
     stage.update();
   });
 
-  start.x = 350;
+  start.x = 300;
   start.y = 300;
   stage.addChild(start);
 
   stage.update();
 
-
-  window.setTimeout(game.end, 60000);
+  setTimeout(() => {
+    game.end();
+    stage.addChild(start);
+  }, 60000);
 });
