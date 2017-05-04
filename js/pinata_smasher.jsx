@@ -1,3 +1,5 @@
+import Projectile from './projectile';
+
 import Game from './game';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -9,4 +11,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // const projectile3 = new Projectile(canvas, stage);
 
   const game = new Game(canvas, stage);
+  window.stage = stage;
 });

@@ -6,13 +6,11 @@ class Projectile {
 
     this.generatePinata();
     this.xDirection = this.pinata.x > canvas.width / 2 ? -1 : 1;
+    this.setVelocity();
+
     stage.addChild(this.pinata);
     window.setInterval(this.tick, 25);
     this.time = 0;
-    // createjs.Ticker.addEventListener("tick", this.tick);
-    // createjs.Ticker.setFPS(40);
-
-    this.setVelocity();
   }
 
   generatePinata() {
@@ -45,9 +43,14 @@ class Projectile {
 
     const pinata = this.pinata;
     const time = (this.time) / 1000;
-    // const time = createjs.Ticker.getTime(true) / 1000;
+
     pinata.y = pinata.y - (time * (this.y_velocity - (4.9 * time)));
     pinata.x = pinata.x + this.x_velocity;
+
+    if (pinata.y > 950) {
+      this.stage.removeChild(pinata);
+    }
+
     this.stage.update(event);
   }
 }

@@ -14,8 +14,6 @@ class Game {
 
     for (let i = 0; i < numPinatas; i++) {
       new Projectile(this.canvas, this.stage);
-      console.log("added pinatas!");
-      console.log(this.stage.children);
     }
   }
 }
