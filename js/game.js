@@ -5,9 +5,14 @@ class Game {
     this.canvas = canvas;
     this.stage = stage;
     this.score = 0;
-    this.generatePinatas = this.generatePinatas.bind(this);
 
-    window.setInterval(this.generatePinatas, 3000);
+    this.start = this.start.bind(this);
+    this.generatePinatas = this.generatePinatas.bind(this);
+    this.end = this.end.bind(this);
+  }
+
+  start() {
+    this.beginGame = setInterval(this.generatePinatas, 3000);
   }
 
   generatePinatas() {
@@ -16,6 +21,10 @@ class Game {
     for (let i = 0; i < numPinatas; i++) {
       new Projectile(this.canvas, this.stage);
     }
+  }
+
+  end() {
+    clearInterval(this.beginGame);
   }
 }
 
