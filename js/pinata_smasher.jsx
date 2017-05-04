@@ -23,6 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
     score.scoreText.text = `Score: ${score.score}`;
     game.start();
     stage.update(event);
+
+    setTimeout(() => {
+      game.end();
+      stage.addChild(score.scoreText);
+      stage.addChild(start);
+    }, 60000);
   });
 
   start.x = 300;
@@ -30,10 +36,4 @@ document.addEventListener('DOMContentLoaded', () => {
   stage.addChild(start);
 
   stage.update();
-
-  setTimeout(() => {
-    game.end();
-    stage.addChild(score.scoreText);
-    stage.addChild(start);
-  }, 60000);
 });
