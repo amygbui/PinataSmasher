@@ -10,9 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
   createjs.Ticker.addEventListener("tick", tick);
   createjs.Ticker.setFPS(40);
 
-  // const y_velocity = Math.random() * 14;
-  // const x_velocity = Math.random() * 10;
-
   const x_velocity = 5;
   let y_velocity = Math.random() * 14;
   while (y_velocity < 8) {
