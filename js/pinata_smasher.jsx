@@ -9,9 +9,12 @@ document.addEventListener('DOMContentLoaded', () => {
   text.y = 100;
 
   const pinata = new Pinata().random();
-  // const pinata = new createjs.Bitmap('./images/pinatas/vonroo.gif');
+  // debugger
   pinata.x = 100;
-  pinata.y = 300;
+  const yPos = Math.round(Math.random() * canvas.height);
+  console.log(yPos)
+  pinata.y = yPos;
+
 
   stage.addChild(pinata);
   stage.addChild(text);
