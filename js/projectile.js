@@ -1,18 +1,32 @@
-import Pinata from './pinata';
-
 class Projectile {
   constructor(canvas, stage) {
     this.canvas = canvas;
     this.stage = stage;
     this.tick = this.tick.bind(this);
 
-    this.pinata = new Pinata(canvas, stage).random();
+    this.generatePinata();
     this.xDirection = this.pinata.x > canvas.width / 2 ? -1 : 1;
     stage.addChild(this.pinata);
     createjs.Ticker.addEventListener("tick", this.tick);
     createjs.Ticker.setFPS(40);
 
     this.setVelocity();
+  }
+
+  generatePinata() {
+    const pinataImages = {
+      0: './images/pinatas/vonroo.gif',
+      1: './images/pinatas/pantdevil.gif',
+      2: './images/pinatas/llama.gif',
+      3: './images/pinatas/vira.gif'
+    }
+
+    const randomKey = Math.round(Math.random() * 4);
+    const pinata = new createjs.Bitmap(pinataImages[randomKey]);
+
+    pinata.x = Math.round(Math.random() * this.canvas.width);
+    pinata.y = 650;
+    this.pinata = pinata;
   }
 
   setVelocity() {
