@@ -1,5 +1,8 @@
 class Pinata {
-  constructor() {
+  constructor(canvas, stage) {
+    this.canvas = canvas;
+    this.stage = stage;
+
     this.pinatas = {
       0: './images/pinatas/vonroo.gif',
       1: './images/pinatas/pantdevil.gif',
@@ -10,7 +13,11 @@ class Pinata {
 
   random() {
     const randomKey = Math.round(Math.random() * 4);
-    return new createjs.Bitmap(this.pinatas[randomKey]);
+    const pinata = new createjs.Bitmap(this.pinatas[randomKey]);
+
+    pinata.x = 100;
+    pinata.y = Math.round(Math.random() * this.canvas.height);
+    return pinata;
   }
 }
 
