@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.stage = stage;
 
-  const score = new Score(stage);
+  const score = new Score(stage, game);
   const game = new Game(canvas, stage, score);
 
   const start = new createjs.Text("Click anywhere to start", "bold 30px Arial", "#000000");

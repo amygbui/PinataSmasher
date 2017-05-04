@@ -1,8 +1,9 @@
-import Projectile from './projectile';
+ import Projectile from './projectile';
 
 class Score {
-  constructor(stage) {
+  constructor(stage, game) {
     this.stage = stage;
+    this.game = game;
     this.score = 0;
     this.updateScore = this.updateScore.bind(this);
 
@@ -13,8 +14,13 @@ class Score {
     stage.addChild(this.scoreText);
   }
 
-  updateScore() {
-    this.score += 10;
+  updateScore(type) {
+    if (type === "pinata") {
+      this.score += 10;
+    } else {
+      this.score -= 50;
+    }
+
     this.scoreText.text = `Score: ${this.score}`;
   }
 }
