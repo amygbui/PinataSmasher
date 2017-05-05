@@ -25,6 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
     stage.update(event);
 
     setTimeout(() => {
+      start.text = `Game over! Your score was ${score.score}`
+      start.x = 230;
       game.end();
       stage.addChild(score.scoreText);
       stage.addChild(start);

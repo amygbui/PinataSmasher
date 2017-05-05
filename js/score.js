@@ -19,6 +19,14 @@ class Score {
       this.score += 10;
     } else {
       this.score -= 50;
+      this.stage.removeAllChildren();
+      this.stage.addChild(this.scoreText);
+
+      const boom = new createjs.Bitmap('./images/pinatas/ouch.png');
+      boom.x = 150;
+      boom.y = 210;
+      this.stage.addChild(boom);
+      setTimeout(() => this.stage.removeChild(boom), 1500);
     }
 
     this.scoreText.text = `Score: ${this.score}`;

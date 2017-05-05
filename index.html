@@ -14,4 +14,145 @@
     <h1 class="animated tada">Piñata Smasher</h1>
     <canvas id="pinata" width=900px height=650px></canvas>
   </body>
+
+  <!-- <script type="text/javascript">
+    var canvas = document.querySelector("#pinata");
+    var context = canvas.getContext("2d");
+
+    var canvasPos = getPosition(canvas);
+    var mouseX = 0;
+    var mouseY = 0;
+
+    canvas.addEventListener("mousemove", setMousePosition, false);
+
+    function setMousePosition(e) {
+      mouseX = e.clientX - canvasPos.x;
+      mouseY = e.clientY - canvasPos.y;
+    }
+
+    function update() {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+      context.beginPath();
+      context.arc(mouseX, mouseY, 50, 0, 2 * Math.PI, true);
+      context.fillStyle = "#FF6A6A";
+      context.fill();
+
+      requestAnimationFrame(update);
+    }
+
+    function getPosition(el) {
+      var xPosition = 0;
+      var yPosition = 0;
+
+      while (el) {
+        xPosition += (el.offsetLeft - el.scrollLeft + el.clientLeft);
+        yPosition += (el.offsetTop - el.scrollTop + el.clientTop);
+        el = el.offsetParent;
+      }
+      return {
+        x: xPosition,
+        y: yPosition
+      };
+    }
+
+    update(); -->
+<!-- 
+    // function update() {
+    //   context.beginPath();
+    //   context.arc(100, 100, 50, 0, 2 * Math.PI, true);
+    //   context.fillStyle = "#FF6A6A";
+    //   context.fill();
+    // }
+    //
+    // update();
+    //
+    // update();
+
+    // var xPos = -100;
+    // var yPos = 170;
+    //
+    // var motionTrailLength = 10;
+    // var positions = [];
+    //
+    // function storeLastPosition(xPos, yPos) {
+    //   // push an item
+    //   positions.push({
+    //     x: xPos,
+    //     y: yPos
+    //   });
+    //
+    //   //get rid of first item
+    //   if (positions.length > motionTrailLength) {
+    //     positions.shift();
+    //   }
+    // }
+    //
+    // // function update() {
+    // //   context.clearRect(0, 0, canvas.width, canvas.height);
+    // //
+    // //   for (var i = 0; i < positions.length; i++) {
+    // //     var ratio = (i + 1) / positions.length;
+    // //
+    // //     context.beginPath();
+    // //     context.arc(positions[i].x, positions[i].y, 7, 0, 2 * Math.PI, true);
+    // //     context.fillStyle = "rgba(204, 102, 153, " + ratio / 2 + ")";
+    // //     context.fill();
+    // //   }
+    // //
+    // //   context.beginPath();
+    // //   context.arc(xPos, yPos, 7, 0, 2 * Math.PI, true);
+    // //   context.fillStyle = "#FF6A6A";
+    // //   context.fill();
+    // //
+    // //   storeLastPosition(xPos, yPos);
+    // //
+    // //   // update position
+    // //   if (xPos > 900) {
+    // //     xPos = -100;
+    // //   }
+    // //   xPos += 3;
+    // //
+    // //   requestAnimationFrame(update);
+    // // }
+    //
+    // function update() {
+    //   context.clearRect(0, 0, canvas.width, canvas.height);
+    //
+    //   for (var i = 0; i < positions.length; i++) {
+    //     var ratio = (i + 1) / positions.length;
+    //     drawCircle(positions[i].x, positions[i].y, ratio);
+    //   }
+    //
+    //   drawCircle(xPos, yPos, "source");
+    //
+    //   storeLastPosition(xPos, yPos);
+    //
+    //   // update position
+    //   if (xPos > 600) {
+    //     xPos = -100;
+    //   }
+    //   xPos += 3;
+    //
+    //   requestAnimationFrame(update);
+    // }
+    //
+    // update();
+    //
+    // function drawCircle(x, y, r) {
+    //   if (r == "source") {
+    //     r = 1;
+    //   } else {
+    //     r /= 4;
+    //   }
+    //
+    //   context.beginPath();
+    //   context.arc(x, y, 7, 0, 2 * Math.PI, true);
+    //   context.fillStyle = "rgba(204, 102, 153, " + r + ")";
+    //   context.fill();
+    // }
+    //
+    //   update();
+  </script> -->
+
 </html>
