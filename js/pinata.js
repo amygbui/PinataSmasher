@@ -15,10 +15,11 @@ const droppedCandies = {
 }
 
 class Pinata {
-  constructor(canvas, stage, score) {
+  constructor(canvas, stage, score, stats) {
     this.canvas = canvas;
     this.stage = stage;
     this.score = score;
+    this.stats = stats;
 
     this.generatePinata = this.generatePinata.bind(this);
     this.smashPinata = this.smashPinata.bind(this);
@@ -29,10 +30,13 @@ class Pinata {
   generatePinata(interval) {
     const randomKey = Math.round(Math.random() * 6);
     const pinata = new createjs.Bitmap(pinataImages[randomKey]);
-    pinata.type = "pinata";
 
     if (randomKey === 4 || randomKey === 5) {
-      pinata.type = "bomb"
+      pinata.type = "bomb";
+      this.stats.increaseTotalPresents();
+    } else {
+      pinata.type = "pinata";
+      this.stats.increaseTotalPinatas();
     }
 
     const hit = new createjs.Shape();
@@ -49,6 +53,9 @@ class Pinata {
       if (pinata.type === "pinata") {
         this.smashPinata(pinata);
         this.dropCandy(pinata);
+        this.stats.increaseHitPinatas();
+      } else if (pinata.type === "bomb") {
+        this.stats.increaseHitPresents();
       }
 
       this.deletePinata(pinata, interval);
