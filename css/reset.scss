@@ -1,26 +1,72 @@
-html, body, h1 {
-  padding: 0;
-  margin: 0;
-  border: 0;
-
+html, body, h1, ul, li, a, h1 {
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  outline: inherit;
   font: inherit;
-  background: transparent;
+  color: inherit;
+  text-align: inherit;
+  text-decoration: inherit;
+  vertical-align: inherit;
   box-sizing: inherit;
+  background: transparent;
+}
+
+ul, li {
+  list-style: none;
 }
 
 body {
   box-sizing: border-box;
   text-align: center;
+  background: rgba(231, 185, 199, 0.18);
+  color: #d3899d; //#e7b9c7;
+  margin: auto;
+  font-family: Gloria Hallelujah;
+  font-size: 20px;
 }
 
 h1 {
-  margin-top: 100px;
-  font-family: 'Rock Salt', cursive;
-  font-size: 40px;
   font-weight: bold;
+  font-size: 35px;
+  text-decoration: underline;
+}
+
+div {
+  position: relative;
+  display: inline-block;
+  margin-top: 100px;
+}
+
+section {
+  position: absolute;
+  width: 220px;
+  margin: 30px 0;
+  left: -250px;
 }
 
 #pinata {
-  margin-top: 50px;
   background-image: url("../images/party.png");
+}
+
+.contact {
+  width: 800px;
+  margin: auto;
+  font-size: 20px;
+}
+
+.contact ul {
+  display: flex;
+  justify-content: space-between;
+}
+
+.contact a {
+  display: block;
+  padding: 10px 20px;
+}
+
+.contact a:hover {
+  color: #fff;
+  background: #d3899d;
+  border-radius: 5px;
 }

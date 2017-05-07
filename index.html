@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Piñata Smasher</title>
     <link rel="shortcut icon" type="image/png" href="./images/pinata.png" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/EaselJS/0.8.0/easeljs.min.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Courgette|Gloria+Hallelujah|Kaushan+Script|Love+Ya+Like+A+Sister|Permanent+Marker" rel="stylesheet">
@@ -14,148 +15,41 @@
   </head>
 
   <body>
-    <!-- <h1 class="animated tada">Piñata Smasher</h1> -->
-    <canvas id="pinata" width=900px height=760px></canvas>
+    <div>
+      <section>
+        <h1>Instructions</h1>
+        Gather 'round all you candy lovers! It's time to play Piñata Smasher!<br /><br />
+
+        The rules are simple:<br />
+        try to hit as many piñatas, but don't destroy any of the birthday presents!<br /><br />
+
+        You've got 60 seconds. Ready... Set... GO!
+      </section>
+      <canvas id="pinata" width=900px height=760px></canvas>
+    </div>
+    <footer class="contact">
+      <ul>
+        <li>
+          <a href="https://github.com/amygbui">
+            <i class="fa fa-github-alt" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/in/amygbui/">
+            <i class="fa fa-linkedin-square" aria-hidden="true"></i> LinkedIn
+          </a>
+        </li>
+        <li>
+          <a href="https://www.amybui.com">
+            <i class="fa fa-folder" aria-hidden="true"></i> Portfolio
+          </a>
+        </li>
+        <li>
+          <a href="https://angel.co/amy-bui-2">
+            <i class="fa fa-folder" aria-hidden="true"></i> Angel's List
+          </a>
+        </li>
+      </ul>
+    </footer>
   </body>
-
-  <!-- <script type="text/javascript">
-    var canvas = document.querySelector("#pinata");
-    var context = canvas.getContext("2d");
-
-    var canvasPos = getPosition(canvas);
-    var mouseX = 0;
-    var mouseY = 0;
-
-    canvas.addEventListener("mousemove", setMousePosition, false);
-
-    function setMousePosition(e) {
-      mouseX = e.clientX - canvasPos.x;
-      mouseY = e.clientY - canvasPos.y;
-    }
-
-    function update() {
-      context.clearRect(0, 0, canvas.width, canvas.height);
-
-      context.beginPath();
-      context.arc(mouseX, mouseY, 50, 0, 2 * Math.PI, true);
-      context.fillStyle = "#FF6A6A";
-      context.fill();
-
-      requestAnimationFrame(update);
-    }
-
-    function getPosition(el) {
-      var xPosition = 0;
-      var yPosition = 0;
-
-      while (el) {
-        xPosition += (el.offsetLeft - el.scrollLeft + el.clientLeft);
-        yPosition += (el.offsetTop - el.scrollTop + el.clientTop);
-        el = el.offsetParent;
-      }
-      return {
-        x: xPosition,
-        y: yPosition
-      };
-    }
-
-    update(); -->
-<!--
-    // function update() {
-    //   context.beginPath();
-    //   context.arc(100, 100, 50, 0, 2 * Math.PI, true);
-    //   context.fillStyle = "#FF6A6A";
-    //   context.fill();
-    // }
-    //
-    // update();
-    //
-    // update();
-
-    // var xPos = -100;
-    // var yPos = 170;
-    //
-    // var motionTrailLength = 10;
-    // var positions = [];
-    //
-    // function storeLastPosition(xPos, yPos) {
-    //   // push an item
-    //   positions.push({
-    //     x: xPos,
-    //     y: yPos
-    //   });
-    //
-    //   //get rid of first item
-    //   if (positions.length > motionTrailLength) {
-    //     positions.shift();
-    //   }
-    // }
-    //
-    // // function update() {
-    // //   context.clearRect(0, 0, canvas.width, canvas.height);
-    // //
-    // //   for (var i = 0; i < positions.length; i++) {
-    // //     var ratio = (i + 1) / positions.length;
-    // //
-    // //     context.beginPath();
-    // //     context.arc(positions[i].x, positions[i].y, 7, 0, 2 * Math.PI, true);
-    // //     context.fillStyle = "rgba(204, 102, 153, " + ratio / 2 + ")";
-    // //     context.fill();
-    // //   }
-    // //
-    // //   context.beginPath();
-    // //   context.arc(xPos, yPos, 7, 0, 2 * Math.PI, true);
-    // //   context.fillStyle = "#FF6A6A";
-    // //   context.fill();
-    // //
-    // //   storeLastPosition(xPos, yPos);
-    // //
-    // //   // update position
-    // //   if (xPos > 900) {
-    // //     xPos = -100;
-    // //   }
-    // //   xPos += 3;
-    // //
-    // //   requestAnimationFrame(update);
-    // // }
-    //
-    // function update() {
-    //   context.clearRect(0, 0, canvas.width, canvas.height);
-    //
-    //   for (var i = 0; i < positions.length; i++) {
-    //     var ratio = (i + 1) / positions.length;
-    //     drawCircle(positions[i].x, positions[i].y, ratio);
-    //   }
-    //
-    //   drawCircle(xPos, yPos, "source");
-    //
-    //   storeLastPosition(xPos, yPos);
-    //
-    //   // update position
-    //   if (xPos > 600) {
-    //     xPos = -100;
-    //   }
-    //   xPos += 3;
-    //
-    //   requestAnimationFrame(update);
-    // }
-    //
-    // update();
-    //
-    // function drawCircle(x, y, r) {
-    //   if (r == "source") {
-    //     r = 1;
-    //   } else {
-    //     r /= 4;
-    //   }
-    //
-    //   context.beginPath();
-    //   context.arc(x, y, 7, 0, 2 * Math.PI, true);
-    //   context.fillStyle = "rgba(204, 102, 153, " + r + ")";
-    //   context.fill();
-    // }
-    //
-    //   update();
-  </script> -->
-
 </html>

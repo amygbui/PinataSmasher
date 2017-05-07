@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const stage = new createjs.Stage(canvas);
   const game = new Game(canvas, stage);
   const { score, stats } = game;
-  stage.enableMouseOver(10);
+  stage.enableMouseOver(20);
 
   const restart = new createjs.Text("(Click anywhere to start)", "bold 25px Gloria Hallelujah", "#000000");
   restart.y = 480;
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         start, restart, score.scoreText,
         pinataHitPercentage, presentHitPercentage,
       );
-    }, 5000);
+    }, 60000);
     // change time back to 60 seconds when in production
   });
 });

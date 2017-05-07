@@ -40,12 +40,11 @@ class Pinata {
     }
 
     const hit = new createjs.Shape();
-    hit.graphics.beginFill("#000").drawRect(-30, 20, 45, 90);
-    hit.rotation = -45;
+    hit.graphics.beginFill("#000").drawRect(0, 20, 90, 70);
     pinata.hitArea = hit;
 
     pinata.x = Math.round(Math.random() * this.canvas.width);
-    pinata.y = 750;
+    pinata.y = 800;
     this.stage.addChild(this.pinata);
 
     pinata.addEventListener("mouseover", () => {
