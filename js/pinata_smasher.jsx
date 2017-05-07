@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
       presentHitPercentage.text = `Presents Hit: ${stats.presentHitPercentage()}%`;
       presentHitPercentage.x = resize(presentHitPercentage);
 
+      stats.reset();
       game.end();
       stage.addChild(score.scoreText);
       stage.addChild(start);

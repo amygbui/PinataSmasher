@@ -20,7 +20,7 @@ class Stats {
   }
 
   increaseHitPresents() {
-    this.hitPinatas += 1;
+    this.hitPresents += 1;
   }
 
   pinataHitPercentage() {
@@ -29,6 +29,13 @@ class Stats {
 
   presentHitPercentage() {
     return Math.round(this.hitPresents / this.totalPresents * 10000) / 100;
+  }
+
+  reset() {
+    this.totalPinatas = 0;
+    this.hitPinatas = 0;
+    this.totalPresents = 0;
+    this.hitPresents = 0;
   }
 }
 
