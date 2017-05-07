@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     restart.text = "(Click anywhere to restart)"
     restart.x = resize(restart);
-    restart.y = start.y + 100;
+    restart.y = 450;
 
     game.start();
     stage.update(event);
@@ -57,7 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
       stage.addChild(restart);
       stage.addChild(pinataHitPercentage);
       stage.addChild(presentHitPercentage);
-    }, 10000);
+      console.log(restart.y);
+    }, 3000);
     // change time back to 60 seconds when in production
   });
 

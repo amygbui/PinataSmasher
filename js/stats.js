@@ -24,11 +24,11 @@ class Stats {
   }
 
   pinataHitPercentage() {
-    return this.hitPinatas / this.totalPinatas * 100;
+    return Math.round(this.hitPinatas / this.totalPinatas * 10000) / 100;
   }
 
   presentHitPercentage() {
-    return this.hitPresents / this.totalPresents * 100;
+    return Math.round(this.hitPresents / this.totalPresents * 10000) / 100;
   }
 }
 
