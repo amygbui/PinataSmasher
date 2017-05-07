@@ -1,3 +1,12 @@
+const pinataImages = {
+  0: './images/pinata.png',
+  1: './images/pinata.png',
+  2: './images/pinata.png',
+  3: './images/pinata.png',
+  4: './images/presentpink.png',
+  5: './images/presentpurple.png'
+}
+
 class Pinata {
   constructor(canvas, stage, score) {
     this.canvas = canvas;
@@ -8,15 +17,6 @@ class Pinata {
   }
 
   generatePinata(interval) {
-    const pinataImages = {
-      0: './images/pinata.png',
-      1: './images/pinata.png',
-      2: './images/pinata.png',
-      3: './images/pinata.png',
-      4: './images/presentpink.png',
-      5: './images/presentpurple.png'
-    }
-
     const randomKey = Math.round(Math.random() * 6);
     const pinata = new createjs.Bitmap(pinataImages[randomKey]);
     pinata.type = "pinata";
@@ -28,7 +28,6 @@ class Pinata {
     const hit = new createjs.Shape();
     hit.graphics.beginFill("#000").drawRect(0, 0, 90, 90);
     pinata.hitArea = hit;
-    // update with pinata.width and height when get new images??
 
     pinata.x = Math.round(Math.random() * this.canvas.width);
     pinata.y = 750;
@@ -40,7 +39,7 @@ class Pinata {
       if (pinata.type === "pinata") {
         this.smashPinata(pinata);
       }
-      
+
       this.deletePinata(pinata, interval);
       this.stage.update();
     });
