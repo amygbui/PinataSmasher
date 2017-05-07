@@ -2,7 +2,7 @@ module.exports = {
   context: __dirname,
   entry: './js/pinata_smasher.js',
   output: {
-    filename: 'bundle.js'
+    filename: './js/bundle.js'
   },
   resolve: {
     extensions: ['.js', '.jsx', '*']
