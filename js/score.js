@@ -5,13 +5,19 @@ class Score {
     this.stage = stage;
     this.game = game;
     this.score = 0;
+    this.fixWidth = this.fixWidth.bind(this);
     this.updateScore = this.updateScore.bind(this);
 
-    this.scoreText = new createjs.Text(`Score: ${this.score}`, "bold 40px Arial", "#000000");
-    this.scoreText.x = 50;
-    this.scoreText.y = 30;
+    this.scoreText = new createjs.Text(`Score: ${this.score}`, "bold 45px Gloria Hallelujah", "#000000");
+    this.scoreText.y = 15;
+    this.fixWidth();
 
     stage.addChild(this.scoreText);
+  }
+
+  fixWidth() {
+    const startWidth = this.scoreText.getBounds().width;
+    this.scoreText.x = (900 - startWidth) / 2;
   }
 
   updateScore(type) {
@@ -22,7 +28,7 @@ class Score {
       this.stage.removeAllChildren();
       this.stage.addChild(this.scoreText);
 
-      const boom = new createjs.Bitmap('./images/pinatas/ouch.png');
+      const boom = new createjs.Bitmap('./images/ouch.png');
       boom.x = 150;
       boom.y = 210;
       this.stage.addChild(boom);
@@ -30,6 +36,7 @@ class Score {
     }
 
     this.scoreText.text = `Score: ${this.score}`;
+    this.fixWidth();
   }
 }
 

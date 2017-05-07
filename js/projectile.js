@@ -19,7 +19,7 @@ class Projectile {
   }
 
   setVelocity() {
-    this.x_velocity = Math.random() * 8 * this.xDirection;
+    this.x_velocity = Math.random() * 12 * this.xDirection;
     this.y_velocity = Math.random() * 37;
 
     while (this.y_velocity < 25) {

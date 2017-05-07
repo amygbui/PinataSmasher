@@ -30,4 +30,4 @@ Friday: Add point scoring logic and game over/life lost.
 Saturday: Add sound effects. Perfect graphics and clean up code.
 
 ## Credits
-Game Background Image: [Pikamander2](http://pikamander2.deviantart.com/art/Party-of-One-background-vector-320504930)
+Game Background Image: [Genie](www.instagram.com/genieart)
