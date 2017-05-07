@@ -1,11 +1,13 @@
+import Score from './score';
+import Stats from './stats'
 import Projectile from './projectile';
 
 class Game {
-  constructor(canvas, stage, score, stats) {
+  constructor(canvas, stage) {
     this.canvas = canvas;
     this.stage = stage;
-    this.score = score;
-    this.stats = stats;
+    this.score = new Score(stage);
+    this.stats = new Stats(stage);
 
     this.start = this.start.bind(this);
     this.generatePinatas = this.generatePinatas.bind(this);
@@ -18,13 +20,14 @@ class Game {
 
   generatePinatas() {
     const numPinatas = (Math.random() * 4) + 1;
-
     for (let i = 0; i < numPinatas; i++) {
       new Projectile(this.canvas, this.stage, this.score, this.stats);
     }
   }
 
   end() {
+    this.score.reset();
+    this.stats.reset();
     this.stage.removeAllChildren();
     clearInterval(this.beginGame);
   }

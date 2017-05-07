@@ -1,9 +1,8 @@
  import Projectile from './projectile';
 
 class Score {
-  constructor(stage, game) {
+  constructor(stage) {
     this.stage = stage;
-    this.game = game;
     this.score = 0;
     this.fixWidth = this.fixWidth.bind(this);
     this.updateScore = this.updateScore.bind(this);
@@ -28,15 +27,19 @@ class Score {
       this.stage.removeAllChildren();
       this.stage.addChild(this.scoreText);
 
-      const boom = new createjs.Bitmap('./images/ouch.png');
-      boom.x = 150;
-      boom.y = 210;
-      this.stage.addChild(boom);
-      setTimeout(() => this.stage.removeChild(boom), 1500);
+      // const boom = new createjs.Bitmap('./images/ouch.png');
+      // boom.x = 150;
+      // boom.y = 210;
+      // this.stage.addChild(boom);
+      // setTimeout(() => this.stage.removeChild(boom), 1500);
     }
 
     this.scoreText.text = `Score: ${this.score}`;
     this.fixWidth();
+  }
+
+  reset() {
+    this.score = 0;
   }
 }
 

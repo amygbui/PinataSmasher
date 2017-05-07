@@ -40,7 +40,8 @@ class Pinata {
     }
 
     const hit = new createjs.Shape();
-    hit.graphics.beginFill("#000").drawRect(0, 0, 90, 90);
+    hit.graphics.beginFill("#000").drawRect(-30, 20, 45, 90);
+    hit.rotation = -45;
     pinata.hitArea = hit;
 
     pinata.x = Math.round(Math.random() * this.canvas.width);
@@ -56,6 +57,11 @@ class Pinata {
         this.stats.increaseHitPinatas();
       } else if (pinata.type === "bomb") {
         this.stats.increaseHitPresents();
+        const boom = new createjs.Bitmap('./images/ouch.png');
+        boom.x = 150;
+        boom.y = 210;
+        this.stage.addChild(boom);
+        setTimeout(() => this.stage.removeChild(boom), 1500);
       }
 
       this.deletePinata(pinata, interval);

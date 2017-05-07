@@ -1,6 +1,6 @@
 module.exports = {
   context: __dirname,
-  entry: './js/pinata_smasher.jsx',
+  entry: './js/pinata_smasher.js',
   output: {
     filename: 'bundle.js'
   },
