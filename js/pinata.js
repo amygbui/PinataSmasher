@@ -7,12 +7,22 @@ const pinataImages = {
   5: './images/presentpurple.png'
 }
 
+const droppedCandies = {
+  0: './images/candy1.png',
+  1: './images/candy2.png',
+  2: './images/candy2.png',
+  3: './images/candy1.png'
+}
+
 class Pinata {
   constructor(canvas, stage, score) {
     this.canvas = canvas;
     this.stage = stage;
     this.score = score;
 
+    this.generatePinata = this.generatePinata.bind(this);
+    this.smashPinata = this.smashPinata.bind(this);
+    this.dropCandy = this.dropCandy.bind(this);
     this.deletePinata = this.deletePinata.bind(this);
   }
 
@@ -38,6 +48,7 @@ class Pinata {
 
       if (pinata.type === "pinata") {
         this.smashPinata(pinata);
+        this.dropCandy(pinata);
       }
 
       this.deletePinata(pinata, interval);
@@ -48,11 +59,20 @@ class Pinata {
   }
 
   smashPinata(pinata) {
-    const candy = new createjs.Bitmap("./images/popcandy.png")
+    const candy = new createjs.Bitmap("./images/popcandy.png");
     candy.x = pinata.x;
     candy.y = pinata.y;
     this.stage.addChild(candy);
     setTimeout(() => this.stage.removeChild(candy), 750);
+  }
+
+  dropCandy(pinata) {
+    const randomKey = Math.round(Math.random() * 4);
+    const droppedCandy = new createjs.Bitmap(droppedCandies[randomKey]);
+    droppedCandy.x = pinata.x;
+    droppedCandy.y = (Math.random() * 30) + 700;
+    // Fix dropped candy heights once candy images come in
+    this.stage.addChild(droppedCandy);
   }
 
   deletePinata(pinata, interval) {
