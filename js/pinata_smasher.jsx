@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
       start.text = `Game over! Your score was ${score.score}`;
       start.x = resize(start);
       start.y = 270;
+      restart.y = 480;
 
       pinataHitPercentage.text = `Pinatas Hit: ${stats.pinataHitPercentage()}%`;
       pinataHitPercentage.x = resize(pinataHitPercentage);
@@ -58,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
       stage.addChild(pinataHitPercentage);
       stage.addChild(presentHitPercentage);
       console.log(restart.y);
-    }, 3000);
+    }, 5000);
     // change time back to 60 seconds when in production
   });
 
