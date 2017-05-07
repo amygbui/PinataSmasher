@@ -20,30 +20,42 @@ document.addEventListener('DOMContentLoaded', () => {
   const presentHitPercentage = new createjs.Text("but don't destroy any presents!", "bold 35px Gloria Hallelujah", "#000000");
   presentHitPercentage.y = 400;
 
+  const timeLeft = new createjs.Text("60", "bold 35px Gloria Hallelujah", "#000000");
+  timeLeft.x = 840;
+  timeLeft.y = 670;
+
   resize(restart, start, pinataHitPercentage, presentHitPercentage);
-  stage.addChild(start, restart, pinataHitPercentage, presentHitPercentage);
+  stage.addChild(start, restart, pinataHitPercentage, presentHitPercentage, timeLeft);
   stage.update();
 
   start.addEventListener("click", (e) => {
     stage.removeChild(start, restart, pinataHitPercentage, presentHitPercentage);
     score.scoreText.text = `Score: ${score.score}`;
-    game.start();
+    restart.text = "(Click anywhere to restart)";
 
-    restart.text = "(Click anywhere to restart)"
+    game.start();
     stage.update();
 
+    let time = 60;
+    const timer = setInterval(() => {
+      time -= 1;
+      timeLeft.text = time;
+      stage.update();
+    }, 1000)
+
     setTimeout(() => {
+      clearInterval(timer);
       start.text = `Game over! Your score was ${score.score}`;
       pinataHitPercentage.text = `Pinatas Hit: ${stats.pinataHitPercentage()}%`;
       presentHitPercentage.text = `Presents Avoided: ${100 - stats.presentHitPercentage()}%`;
-
+      timeLeft.text = 60;
       game.end();
       resize(start, pinataHitPercentage, presentHitPercentage);
       stage.addChild(
-        start, restart, score.scoreText,
+        start, restart, score.scoreText, timeLeft,
         pinataHitPercentage, presentHitPercentage,
       );
-    }, 60000);
+    }, 61000);
     // change time back to 60 seconds when in production
   });
 });

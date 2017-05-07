@@ -15,7 +15,7 @@ class Game {
   }
 
   start() {
-    this.beginGame = setInterval(this.generatePinatas, 3000);
+    this.beginGame = setInterval(this.generatePinatas, 2000);
   }
 
   generatePinatas() {
