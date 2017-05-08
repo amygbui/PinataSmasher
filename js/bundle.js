@@ -267,6 +267,7 @@ var Pinata = function () {
 
     this.generatePinata = this.generatePinata.bind(this);
     this.pinataReaction = this.pinataReaction.bind(this);
+    this.addListener = this.addListener.bind(this);
     // this.music = this.music.bind(this);
 
     this.smashPinata = this.smashPinata.bind(this);
@@ -277,8 +278,6 @@ var Pinata = function () {
   _createClass(Pinata, [{
     key: 'generatePinata',
     value: function generatePinata(interval) {
-      var _this = this;
-
       var randomKey = Math.floor(Math.random() * 6);
       var pinata = new createjs.Bitmap(pinataImages[randomKey]);
 
@@ -298,6 +297,14 @@ var Pinata = function () {
       pinata.y = 800;
       this.stage.addChild(this.pinata);
 
+      this.addListener(pinata, interval);
+      return pinata;
+    }
+  }, {
+    key: 'addListener',
+    value: function addListener(pinata, interval) {
+      var _this = this;
+
       pinata.addEventListener("mouseover", function () {
         var type = pinata.type;
         var sound = _this.music(type);
@@ -305,22 +312,9 @@ var Pinata = function () {
         sound.play();
 
         _this.pinataReaction(pinata, type);
-        // this.score.updateScore(pinata.type);
-        // if (pinata.type === "pinata") {
-        //   this.smashPinata(pinata);
-        //   this.dropCandy(pinata);
-        //   this.stats.increaseHitPinatas();
-        // } else if (pinata.type === "bomb") {
-        //   this.stats.increaseHitPresents();
-        //   this.stage.addChild(yikes, beCareful);
-        //   setTimeout(() => this.stage.removeChild(yikes, beCareful), 1500);
-        // }
-
         _this.deletePinata(pinata, interval);
         _this.stage.update();
       });
-
-      return pinata;
     }
   }, {
     key: 'music',

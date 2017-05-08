@@ -25,6 +25,7 @@ class Pinata {
 
     this.generatePinata = this.generatePinata.bind(this);
     this.pinataReaction = this.pinataReaction.bind(this);
+    this.addListener = this.addListener.bind(this);
     // this.music = this.music.bind(this);
 
     this.smashPinata = this.smashPinata.bind(this);
@@ -52,6 +53,11 @@ class Pinata {
     pinata.y = 800;
     this.stage.addChild(this.pinata);
 
+    this.addListener(pinata, interval);
+    return pinata;
+  }
+
+  addListener(pinata, interval) {
     pinata.addEventListener("mouseover", () => {
       const type = pinata.type
       const sound = this.music(type);
@@ -59,22 +65,9 @@ class Pinata {
       sound.play();
 
       this.pinataReaction(pinata, type);
-      // this.score.updateScore(pinata.type);
-      // if (pinata.type === "pinata") {
-      //   this.smashPinata(pinata);
-      //   this.dropCandy(pinata);
-      //   this.stats.increaseHitPinatas();
-      // } else if (pinata.type === "bomb") {
-      //   this.stats.increaseHitPresents();
-      //   this.stage.addChild(yikes, beCareful);
-      //   setTimeout(() => this.stage.removeChild(yikes, beCareful), 1500);
-      // }
-
       this.deletePinata(pinata, interval);
       this.stage.update();
     });
-
-    return pinata;
   }
 
   music(type) {
