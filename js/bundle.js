@@ -235,6 +235,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _text = __webpack_require__(6);
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var pinataImages = {
@@ -294,26 +296,33 @@ var Pinata = function () {
 
       pinata.addEventListener("mouseover", function () {
         _this.score.updateScore(pinata.type);
+        var pinataSound = new Audio('./sounds/pop.mp3');
+        var presentSound = new Audio('./sounds/clang.mp3');
+        var sound = pinata.type === "pinata" ? pinataSound : presentSound;
+        sound.currentTime = 0;
+        sound.play();
 
         if (pinata.type === "pinata") {
           _this.smashPinata(pinata);
           _this.dropCandy(pinata);
           _this.stats.increaseHitPinatas();
-          var sound = new Audio('./sounds/pop.mp3');
-          sound.currentTime = 0;
-          sound.play();
         } else if (pinata.type === "bomb") {
           _this.stats.increaseHitPresents();
-          var boom = new createjs.Bitmap('./images/ouch.png');
-          boom.x = 150;
-          boom.y = 210;
-          _this.stage.addChild(boom);
+
+          // const ouch = new createjs.Text("", "bold 90px Gloria Hallelujah", "#000");
+          // ouch.text = "YIKES!";
+          // // ouch.y = 300;
+          // ouch.y = 270;
+          // ouch.x = (900 - ouch.getBounds().width) / 2;
+          // const beCareful = new createjs.Text("", "bold 40px Gloria Hallelujah", "#000");
+          // beCareful.text = "Be careful!";
+          // beCareful.y = 400;
+          // beCareful.x = (900 - beCareful.getBounds().width) / 2;
+
+          _this.stage.addChild(_text.yikes, _text.beCareful);
           setTimeout(function () {
-            return _this.stage.removeChild(boom);
+            return _this.stage.removeChild(_text.yikes, _text.beCareful);
           }, 1500);
-          var _sound = new Audio('./sounds/clang.mp3');
-          _sound.currentTime = 0;
-          _sound.play();
         }
 
         _this.deletePinata(pinata, interval);
@@ -584,6 +593,16 @@ pinataHitPercentage.y = 350;
 
 var presentHitPercentage = exports.presentHitPercentage = new createjs.Text("but don't destroy any presents!", "bold 35px Gloria Hallelujah", "#000000");
 presentHitPercentage.y = 400;
+
+var yikes = exports.yikes = new createjs.Text("", "bold 90px Gloria Hallelujah", "#000");
+yikes.text = "YIKES!";
+yikes.y = 270;
+yikes.x = (900 - yikes.getBounds().width) / 2;
+
+var beCareful = exports.beCareful = new createjs.Text("", "bold 40px Gloria Hallelujah", "#000");
+beCareful.text = "Be careful!";
+beCareful.y = 400;
+beCareful.x = (900 - beCareful.getBounds().width) / 2;
 
 /***/ }),
 /* 7 */

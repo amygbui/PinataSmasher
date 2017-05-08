@@ -1,3 +1,5 @@
+import { yikes, beCareful } from './text';
+
 const pinataImages = {
   0: './images/pinata.png',
   1: './images/pinata2.png',
@@ -49,24 +51,31 @@ class Pinata {
 
     pinata.addEventListener("mouseover", () => {
       this.score.updateScore(pinata.type);
+      const pinataSound = new Audio('./sounds/pop.mp3');
+      const presentSound = new Audio('./sounds/clang.mp3');
+      const sound = pinata.type === "pinata" ? pinataSound : presentSound;
+      sound.currentTime = 0;
+      sound.play();
 
       if (pinata.type === "pinata") {
         this.smashPinata(pinata);
         this.dropCandy(pinata);
         this.stats.increaseHitPinatas();
-        const sound = new Audio('./sounds/pop.mp3');
-        sound.currentTime = 0;
-        sound.play();
       } else if (pinata.type === "bomb") {
         this.stats.increaseHitPresents();
-        const boom = new createjs.Bitmap('./images/ouch.png');
-        boom.x = 150;
-        boom.y = 210;
-        this.stage.addChild(boom);
-        setTimeout(() => this.stage.removeChild(boom), 1500);
-        const sound = new Audio('./sounds/clang.mp3')
-        sound.currentTime = 0;
-        sound.play();
+
+        // const ouch = new createjs.Text("", "bold 90px Gloria Hallelujah", "#000");
+        // ouch.text = "YIKES!";
+        // // ouch.y = 300;
+        // ouch.y = 270;
+        // ouch.x = (900 - ouch.getBounds().width) / 2;
+        // const beCareful = new createjs.Text("", "bold 40px Gloria Hallelujah", "#000");
+        // beCareful.text = "Be careful!";
+        // beCareful.y = 400;
+        // beCareful.x = (900 - beCareful.getBounds().width) / 2;
+
+        this.stage.addChild(yikes, beCareful);
+        setTimeout(() => this.stage.removeChild(yikes, beCareful), 1500);
       }
 
       this.deletePinata(pinata, interval);
