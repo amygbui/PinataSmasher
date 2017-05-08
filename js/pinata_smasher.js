@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
         pinataHitPercentage, presentHitPercentage,
       );
     }, 61000);
-    // change time back to 60 seconds when in production
+    // change time back to 61 seconds when in production
   });
 });
 

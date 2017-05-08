@@ -240,8 +240,8 @@ var pinataImages = {
 var droppedCandies = {
   0: './images/candy1.png',
   1: './images/candy2.png',
-  2: './images/candy2.png',
-  3: './images/candy1.png'
+  2: './images/candy3.png',
+  3: './images/candy4.png'
 };
 
 var Pinata = function () {
@@ -264,7 +264,7 @@ var Pinata = function () {
     value: function generatePinata(interval) {
       var _this = this;
 
-      var randomKey = Math.round(Math.random() * 6);
+      var randomKey = Math.floor(Math.random() * 6);
       var pinata = new createjs.Bitmap(pinataImages[randomKey]);
 
       if (randomKey === 4 || randomKey === 5) {
@@ -329,7 +329,7 @@ var Pinata = function () {
   }, {
     key: 'dropCandy',
     value: function dropCandy(pinata) {
-      var randomKey = Math.round(Math.random() * 4);
+      var randomKey = Math.floor(Math.random() * 4);
       var droppedCandy = new createjs.Bitmap(droppedCandies[randomKey]);
       droppedCandy.x = pinata.x;
       droppedCandy.y = Math.random() * 30 + 700;
@@ -417,7 +417,7 @@ document.addEventListener('DOMContentLoaded', function () {
       resize(start, pinataHitPercentage, presentHitPercentage);
       stage.addChild(start, restart, score.scoreText, timeLeft, pinataHitPercentage, presentHitPercentage);
     }, 61000);
-    // change time back to 60 seconds when in production
+    // change time back to 61 seconds when in production
   });
 });
 

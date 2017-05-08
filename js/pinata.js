@@ -10,8 +10,8 @@ const pinataImages = {
 const droppedCandies = {
   0: './images/candy1.png',
   1: './images/candy2.png',
-  2: './images/candy2.png',
-  3: './images/candy1.png'
+  2: './images/candy3.png',
+  3: './images/candy4.png'
 }
 
 class Pinata {
@@ -28,7 +28,7 @@ class Pinata {
   }
 
   generatePinata(interval) {
-    const randomKey = Math.round(Math.random() * 6);
+    const randomKey = Math.floor(Math.random() * 6);
     const pinata = new createjs.Bitmap(pinataImages[randomKey]);
 
     if (randomKey === 4 || randomKey === 5) {
@@ -85,7 +85,7 @@ class Pinata {
   }
 
   dropCandy(pinata) {
-    const randomKey = Math.round(Math.random() * 4);
+    const randomKey = Math.floor(Math.random() * 4);
     const droppedCandy = new createjs.Bitmap(droppedCandies[randomKey]);
     droppedCandy.x = pinata.x;
     droppedCandy.y = (Math.random() * 30) + 700;
