@@ -290,6 +290,9 @@ var Pinata = function () {
           _this.smashPinata(pinata);
           _this.dropCandy(pinata);
           _this.stats.increaseHitPinatas();
+          var sound = new Audio('./sounds/pop.mp3');
+          sound.currentTime = 0;
+          sound.play();
         } else if (pinata.type === "bomb") {
           _this.stats.increaseHitPresents();
           var boom = new createjs.Bitmap('./images/ouch.png');
@@ -299,6 +302,9 @@ var Pinata = function () {
           setTimeout(function () {
             return _this.stage.removeChild(boom);
           }, 1500);
+          var _sound = new Audio('./sounds/clang.mp3');
+          _sound.currentTime = 0;
+          _sound.play();
         }
 
         _this.deletePinata(pinata, interval);

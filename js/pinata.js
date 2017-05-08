@@ -54,6 +54,9 @@ class Pinata {
         this.smashPinata(pinata);
         this.dropCandy(pinata);
         this.stats.increaseHitPinatas();
+        const sound = new Audio('./sounds/pop.mp3');
+        sound.currentTime = 0;
+        sound.play();
       } else if (pinata.type === "bomb") {
         this.stats.increaseHitPresents();
         const boom = new createjs.Bitmap('./images/ouch.png');
@@ -61,6 +64,9 @@ class Pinata {
         boom.y = 210;
         this.stage.addChild(boom);
         setTimeout(() => this.stage.removeChild(boom), 1500);
+        const sound = new Audio('./sounds/clang.mp3')
+        sound.currentTime = 0;
+        sound.play();
       }
 
       this.deletePinata(pinata, interval);
