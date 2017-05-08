@@ -33,16 +33,18 @@ h1 {
 }
 
 div {
-  position: relative;
-  display: inline-block;
+  /*position: relative;*/
+  /*display: inline-block;*/
   margin-top: 100px;
+  display: flex;
+  justify-content: center;
 }
 
 section {
-  position: absolute;
+  /*position: absolute;*/
   width: 220px;
-  margin: 30px 0;
-  left: -250px;
+  margin: 30px;
+  /*left: -250px;*/
 }
 
 #pinata {
