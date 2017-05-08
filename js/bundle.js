@@ -163,6 +163,10 @@ var _stats = __webpack_require__(5);
 
 var _stats2 = _interopRequireDefault(_stats);
 
+var _timer = __webpack_require__(7);
+
+var _timer2 = _interopRequireDefault(_timer);
+
 var _projectile = __webpack_require__(0);
 
 var _projectile2 = _interopRequireDefault(_projectile);
@@ -177,7 +181,8 @@ var Game = function () {
 
     this.canvas = canvas;
     this.stage = stage;
-    this.score = new _score2.default(stage);
+    this.timer = new _timer2.default(stage);
+    this.score = new _score2.default(stage, this.timer);
     this.stats = new _stats2.default(stage);
 
     this.start = this.start.bind(this);
@@ -189,6 +194,7 @@ var Game = function () {
     key: 'start',
     value: function start() {
       this.beginGame = setInterval(this.generatePinatas, 2000);
+      this.timer.start();
     }
   }, {
     key: 'generatePinatas',
@@ -203,7 +209,10 @@ var Game = function () {
     value: function end() {
       this.score.reset();
       this.stats.reset();
+      this.timer.reset();
+
       this.stage.removeAllChildren();
+      this.stage.addChild(this.score.scoreText, this.timer.time);
       clearInterval(this.beginGame);
     }
   }]);
@@ -333,7 +342,6 @@ var Pinata = function () {
       var droppedCandy = new createjs.Bitmap(droppedCandies[randomKey]);
       droppedCandy.x = pinata.x;
       droppedCandy.y = Math.random() * 30 + 680;
-      // Fix dropped candy heights once candy images come in
       this.stage.addChild(droppedCandy);
     }
   }, {
@@ -360,6 +368,8 @@ var _game = __webpack_require__(1);
 
 var _game2 = _interopRequireDefault(_game);
 
+var _text = __webpack_require__(6);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -372,50 +382,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
   stage.enableMouseOver(20);
 
-  var restart = new createjs.Text("(Click anywhere to start)", "bold 25px Gloria Hallelujah", "#000000");
-  restart.y = 480;
-  var start = new createjs.Text("Welcome to Pinata Smasher!", "bold 35px Gloria Hallelujah", "#000000");
   var hit = new createjs.Shape();
   hit.graphics.beginFill("#000").drawRect(0, -270, canvas.width, canvas.height);
-  start.hitArea = hit;
-  start.y = 270;
-  var pinataHitPercentage = new createjs.Text("Hit as many pinatas as you can,", "bold 35px Gloria Hallelujah", "#000000");
-  pinataHitPercentage.y = 350;
-  var presentHitPercentage = new createjs.Text("but don't destroy any presents!", "bold 35px Gloria Hallelujah", "#000000");
-  presentHitPercentage.y = 400;
+  _text.start.hitArea = hit;
 
-  var timeLeft = new createjs.Text("60", "bold 35px Gloria Hallelujah", "#000000");
-  timeLeft.x = 840;
-  timeLeft.y = 670;
-
-  resize(restart, start, pinataHitPercentage, presentHitPercentage);
-  stage.addChild(start, restart, pinataHitPercentage, presentHitPercentage, timeLeft);
+  resize(_text.restart, _text.start, _text.pinataHitPercentage, _text.presentHitPercentage);
+  stage.addChild(_text.start, _text.restart, _text.pinataHitPercentage, _text.presentHitPercentage);
   stage.update();
 
-  start.addEventListener("click", function (e) {
-    stage.removeChild(start, restart, pinataHitPercentage, presentHitPercentage);
-    score.scoreText.text = 'Score: ' + score.score;
-    restart.text = "(Click anywhere to restart)";
+  _text.start.addEventListener("click", function (e) {
+    stage.removeChild(_text.start, _text.restart, _text.pinataHitPercentage, _text.presentHitPercentage);
+    _text.restart.text = "(Click anywhere to restart)";
 
     game.start();
     stage.update();
 
-    var time = 60;
-    var timer = setInterval(function () {
-      time -= 1;
-      timeLeft.text = time;
-      stage.update();
-    }, 1000);
-
     setTimeout(function () {
-      clearInterval(timer);
-      start.text = 'Game over! Your score was ' + score.score;
-      pinataHitPercentage.text = 'Pinatas Hit: ' + stats.pinataHitPercentage() + '%';
-      presentHitPercentage.text = 'Presents Avoided: ' + (100 - stats.presentHitPercentage()) + '%';
-      timeLeft.text = 60;
+      _text.start.text = 'Game over! Your score was ' + score.score;
+      _text.pinataHitPercentage.text = 'Pinatas Hit: ' + stats.pinataHitPercentage() + '%';
+      _text.presentHitPercentage.text = 'Presents Avoided: ' + (100 - stats.presentHitPercentage()) + '%';
       game.end();
-      resize(start, pinataHitPercentage, presentHitPercentage);
-      stage.addChild(start, restart, score.scoreText, timeLeft, pinataHitPercentage, presentHitPercentage);
+      resize(_text.start, _text.pinataHitPercentage, _text.presentHitPercentage);
+      stage.addChild(_text.start, _text.restart, _text.pinataHitPercentage, _text.presentHitPercentage);
     }, 61000);
     // change time back to 61 seconds when in production
   });
@@ -454,10 +442,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Score = function () {
-  function Score(stage) {
+  function Score(stage, timer) {
     _classCallCheck(this, Score);
 
     this.stage = stage;
+    this.timer = timer;
     this.score = 0;
     this.fixWidth = this.fixWidth.bind(this);
     this.updateScore = this.updateScore.bind(this);
@@ -484,6 +473,7 @@ var Score = function () {
         this.score -= 50;
         this.stage.removeAllChildren();
         this.stage.addChild(this.scoreText);
+        this.stage.addChild(this.timer.time);
       }
 
       this.scoreText.text = "Score: " + this.score;
@@ -493,6 +483,7 @@ var Score = function () {
     key: "reset",
     value: function reset() {
       this.score = 0;
+      this.scoreText.text = "Score: " + this.score;
     }
   }]);
 
@@ -571,6 +562,81 @@ var Stats = function () {
 }();
 
 exports.default = Stats;
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var restart = exports.restart = new createjs.Text("(Click anywhere to start)", "bold 25px Gloria Hallelujah", "#000000");
+restart.y = 480;
+
+var start = exports.start = new createjs.Text("Welcome to Pinata Smasher!", "bold 35px Gloria Hallelujah", "#000000");
+start.y = 270;
+
+var pinataHitPercentage = exports.pinataHitPercentage = new createjs.Text("Hit as many pinatas as you can,", "bold 35px Gloria Hallelujah", "#000000");
+pinataHitPercentage.y = 350;
+
+var presentHitPercentage = exports.presentHitPercentage = new createjs.Text("but don't destroy any presents!", "bold 35px Gloria Hallelujah", "#000000");
+presentHitPercentage.y = 400;
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Timer = function () {
+  function Timer(stage) {
+    _classCallCheck(this, Timer);
+
+    this.stage = stage;
+    this.timeLeft = 60;
+    this.time = new createjs.Text("60", "bold 35px Gloria Hallelujah", "#000000");
+    this.time.x = 840;
+    this.time.y = 670;
+    this.stage.addChild(this.time);
+  }
+
+  _createClass(Timer, [{
+    key: "start",
+    value: function start() {
+      var _this = this;
+
+      this.timer = setInterval(function () {
+        _this.timeLeft -= 1;
+        _this.time.text = _this.timeLeft;
+        _this.stage.addChild(_this.time);
+        _this.stage.update();
+      }, 1000);
+    }
+  }, {
+    key: "reset",
+    value: function reset() {
+      clearInterval(this.timer);
+      this.timeLeft = 60;
+      this.time.text = this.timeLeft;
+    }
+  }]);
+
+  return Timer;
+}();
+
+exports.default = Timer;
 
 /***/ })
 /******/ ]);

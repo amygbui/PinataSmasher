@@ -89,7 +89,6 @@ class Pinata {
     const droppedCandy = new createjs.Bitmap(droppedCandies[randomKey]);
     droppedCandy.x = pinata.x;
     droppedCandy.y = (Math.random() * 30) + 680;
-    // Fix dropped candy heights once candy images come in
     this.stage.addChild(droppedCandy);
   }
 
