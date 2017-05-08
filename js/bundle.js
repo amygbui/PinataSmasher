@@ -100,7 +100,7 @@ var Projectile = function () {
     this.time = 0;
 
     this.PinataClass = new _pinata2.default(canvas, stage, score, stats);
-    this.pinata = this.PinataClass.generatePinata();
+    this.pinata = this.PinataClass.generatePinata(this.interval);
     this.xDirection = this.pinata.x > canvas.width / 2 ? -1 : 1;
     this.setVelocity();
 
@@ -266,6 +266,9 @@ var Pinata = function () {
     this.stats = stats;
 
     this.generatePinata = this.generatePinata.bind(this);
+    this.pinataReaction = this.pinataReaction.bind(this);
+    // this.music = this.music.bind(this);
+
     this.smashPinata = this.smashPinata.bind(this);
     this.dropCandy = this.dropCandy.bind(this);
     this.deletePinata = this.deletePinata.bind(this);
@@ -296,24 +299,22 @@ var Pinata = function () {
       this.stage.addChild(this.pinata);
 
       pinata.addEventListener("mouseover", function () {
-        _this.score.updateScore(pinata.type);
-        var pinataSound = new Audio('./sounds/pop.mp3');
-        var presentSound = new Audio('./sounds/clang.mp3');
-        var sound = pinata.type === "pinata" ? pinataSound : presentSound;
+        var type = pinata.type;
+        var sound = _this.music(type);
         sound.currentTime = 0;
         sound.play();
 
-        if (pinata.type === "pinata") {
-          _this.smashPinata(pinata);
-          _this.dropCandy(pinata);
-          _this.stats.increaseHitPinatas();
-        } else if (pinata.type === "bomb") {
-          _this.stats.increaseHitPresents();
-          _this.stage.addChild(_text.yikes, _text.beCareful);
-          setTimeout(function () {
-            return _this.stage.removeChild(_text.yikes, _text.beCareful);
-          }, 1500);
-        }
+        _this.pinataReaction(pinata, type);
+        // this.score.updateScore(pinata.type);
+        // if (pinata.type === "pinata") {
+        //   this.smashPinata(pinata);
+        //   this.dropCandy(pinata);
+        //   this.stats.increaseHitPinatas();
+        // } else if (pinata.type === "bomb") {
+        //   this.stats.increaseHitPresents();
+        //   this.stage.addChild(yikes, beCareful);
+        //   setTimeout(() => this.stage.removeChild(yikes, beCareful), 1500);
+        // }
 
         _this.deletePinata(pinata, interval);
         _this.stage.update();
@@ -322,16 +323,42 @@ var Pinata = function () {
       return pinata;
     }
   }, {
+    key: 'music',
+    value: function music(type) {
+      var pinataSound = new Audio('./sounds/pop.mp3');
+      var presentSound = new Audio('./sounds/clang.mp3');
+      return type === "pinata" ? pinataSound : presentSound;
+    }
+  }, {
+    key: 'pinataReaction',
+    value: function pinataReaction(pinata, type) {
+      var _this2 = this;
+
+      this.score.updateScore(type);
+
+      if (type === "pinata") {
+        this.smashPinata(pinata);
+        this.dropCandy(pinata);
+        this.stats.increaseHitPinatas();
+      } else if (type === "bomb") {
+        this.stats.increaseHitPresents();
+        this.stage.addChild(_text.yikes, _text.beCareful);
+        setTimeout(function () {
+          return _this2.stage.removeChild(_text.yikes, _text.beCareful);
+        }, 1500);
+      }
+    }
+  }, {
     key: 'smashPinata',
     value: function smashPinata(pinata) {
-      var _this2 = this;
+      var _this3 = this;
 
       var candy = new createjs.Bitmap("./images/popcandy.png");
       candy.x = pinata.x;
       candy.y = pinata.y;
       this.stage.addChild(candy);
       setTimeout(function () {
-        return _this2.stage.removeChild(candy);
+        return _this3.stage.removeChild(candy);
       }, 750);
     }
   }, {

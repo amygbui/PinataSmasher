@@ -24,6 +24,9 @@ class Pinata {
     this.stats = stats;
 
     this.generatePinata = this.generatePinata.bind(this);
+    this.pinataReaction = this.pinataReaction.bind(this);
+    // this.music = this.music.bind(this);
+
     this.smashPinata = this.smashPinata.bind(this);
     this.dropCandy = this.dropCandy.bind(this);
     this.deletePinata = this.deletePinata.bind(this);
@@ -50,28 +53,48 @@ class Pinata {
     this.stage.addChild(this.pinata);
 
     pinata.addEventListener("mouseover", () => {
-      this.score.updateScore(pinata.type);
-      const pinataSound = new Audio('./sounds/pop.mp3');
-      const presentSound = new Audio('./sounds/clang.mp3');
-      const sound = pinata.type === "pinata" ? pinataSound : presentSound;
+      const type = pinata.type
+      const sound = this.music(type);
       sound.currentTime = 0;
       sound.play();
 
-      if (pinata.type === "pinata") {
-        this.smashPinata(pinata);
-        this.dropCandy(pinata);
-        this.stats.increaseHitPinatas();
-      } else if (pinata.type === "bomb") {
-        this.stats.increaseHitPresents();
-        this.stage.addChild(yikes, beCareful);
-        setTimeout(() => this.stage.removeChild(yikes, beCareful), 1500);
-      }
+      this.pinataReaction(pinata, type);
+      // this.score.updateScore(pinata.type);
+      // if (pinata.type === "pinata") {
+      //   this.smashPinata(pinata);
+      //   this.dropCandy(pinata);
+      //   this.stats.increaseHitPinatas();
+      // } else if (pinata.type === "bomb") {
+      //   this.stats.increaseHitPresents();
+      //   this.stage.addChild(yikes, beCareful);
+      //   setTimeout(() => this.stage.removeChild(yikes, beCareful), 1500);
+      // }
 
       this.deletePinata(pinata, interval);
       this.stage.update();
     });
 
     return pinata;
+  }
+
+  music(type) {
+    const pinataSound = new Audio('./sounds/pop.mp3');
+    const presentSound = new Audio('./sounds/clang.mp3');
+    return type === "pinata" ? pinataSound : presentSound;
+  }
+
+  pinataReaction(pinata, type) {
+    this.score.updateScore(type);
+
+    if (type === "pinata") {
+      this.smashPinata(pinata);
+      this.dropCandy(pinata);
+      this.stats.increaseHitPinatas();
+    } else if (type === "bomb") {
+      this.stats.increaseHitPresents();
+      this.stage.addChild(yikes, beCareful);
+      setTimeout(() => this.stage.removeChild(yikes, beCareful), 1500);
+    }
   }
 
   smashPinata(pinata) {

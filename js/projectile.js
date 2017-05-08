@@ -11,7 +11,7 @@ class Projectile {
     this.time = 0;
 
     this.PinataClass = new Pinata(canvas, stage, score, stats);
-    this.pinata = this.PinataClass.generatePinata();
+    this.pinata = this.PinataClass.generatePinata(this.interval);
     this.xDirection = this.pinata.x > canvas.width / 2 ? -1 : 1;
     this.setVelocity();
 
