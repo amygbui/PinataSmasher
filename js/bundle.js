@@ -230,8 +230,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var pinataImages = {
   0: './images/pinata.png',
-  1: './images/pinata.png',
-  2: './images/pinata.png',
+  1: './images/pinata2.png',
+  2: './images/pinata3.png',
   3: './images/pinata.png',
   4: './images/presentpink.png',
   5: './images/presentpurple.png'
