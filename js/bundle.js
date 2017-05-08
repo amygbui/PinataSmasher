@@ -195,6 +195,7 @@ var Game = function () {
     value: function start() {
       this.beginGame = setInterval(this.generatePinatas, 2000);
       this.timer.start();
+      this.stage.update();
     }
   }, {
     key: 'generatePinatas',
@@ -308,17 +309,6 @@ var Pinata = function () {
           _this.stats.increaseHitPinatas();
         } else if (pinata.type === "bomb") {
           _this.stats.increaseHitPresents();
-
-          // const ouch = new createjs.Text("", "bold 90px Gloria Hallelujah", "#000");
-          // ouch.text = "YIKES!";
-          // // ouch.y = 300;
-          // ouch.y = 270;
-          // ouch.x = (900 - ouch.getBounds().width) / 2;
-          // const beCareful = new createjs.Text("", "bold 40px Gloria Hallelujah", "#000");
-          // beCareful.text = "Be careful!";
-          // beCareful.y = 400;
-          // beCareful.x = (900 - beCareful.getBounds().width) / 2;
-
           _this.stage.addChild(_text.yikes, _text.beCareful);
           setTimeout(function () {
             return _this.stage.removeChild(_text.yikes, _text.beCareful);
@@ -395,39 +385,25 @@ document.addEventListener('DOMContentLoaded', function () {
   hit.graphics.beginFill("#000").drawRect(0, -270, canvas.width, canvas.height);
   _text.start.hitArea = hit;
 
-  resize(_text.restart, _text.start, _text.pinataHitPercentage, _text.presentHitPercentage);
+  (0, _text.resize)(_text.restart, _text.start, _text.pinataHitPercentage, _text.presentHitPercentage);
   stage.addChild(_text.start, _text.restart, _text.pinataHitPercentage, _text.presentHitPercentage);
   stage.update();
 
   _text.start.addEventListener("click", function (e) {
     stage.removeChild(_text.start, _text.restart, _text.pinataHitPercentage, _text.presentHitPercentage);
     _text.restart.text = "(Click anywhere to restart)";
-
     game.start();
-    stage.update();
 
     setTimeout(function () {
       _text.start.text = 'Game over! Your score was ' + score.score;
       _text.pinataHitPercentage.text = 'Pinatas Hit: ' + stats.pinataHitPercentage() + '%';
       _text.presentHitPercentage.text = 'Presents Avoided: ' + (100 - stats.presentHitPercentage()) + '%';
       game.end();
-      resize(_text.start, _text.pinataHitPercentage, _text.presentHitPercentage);
+      (0, _text.resize)(_text.start, _text.pinataHitPercentage, _text.presentHitPercentage);
       stage.addChild(_text.start, _text.restart, _text.pinataHitPercentage, _text.presentHitPercentage);
     }, 61000);
-    // change time back to 61 seconds when in production
   });
 });
-
-function resize() {
-  for (var _len = arguments.length, texts = Array(_len), _key = 0; _key < _len; _key++) {
-    texts[_key] = arguments[_key];
-  }
-
-  texts.forEach(function (text) {
-    var width = text.getBounds().width;
-    text.x = (900 - width) / 2;
-  });
-}
 
 /***/ }),
 /* 4 */
@@ -582,6 +558,17 @@ exports.default = Stats;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+var resize = exports.resize = function resize() {
+  for (var _len = arguments.length, texts = Array(_len), _key = 0; _key < _len; _key++) {
+    texts[_key] = arguments[_key];
+  }
+
+  texts.forEach(function (text) {
+    var width = text.getBounds().width;
+    text.x = (900 - width) / 2;
+  });
+};
+
 var restart = exports.restart = new createjs.Text("(Click anywhere to start)", "bold 25px Gloria Hallelujah", "#000000");
 restart.y = 480;
 
@@ -597,12 +584,12 @@ presentHitPercentage.y = 400;
 var yikes = exports.yikes = new createjs.Text("", "bold 90px Gloria Hallelujah", "#000");
 yikes.text = "YIKES!";
 yikes.y = 270;
-yikes.x = (900 - yikes.getBounds().width) / 2;
 
 var beCareful = exports.beCareful = new createjs.Text("", "bold 40px Gloria Hallelujah", "#000");
 beCareful.text = "Be careful!";
 beCareful.y = 400;
-beCareful.x = (900 - beCareful.getBounds().width) / 2;
+
+resize(yikes, beCareful);
 
 /***/ }),
 /* 7 */

@@ -63,17 +63,6 @@ class Pinata {
         this.stats.increaseHitPinatas();
       } else if (pinata.type === "bomb") {
         this.stats.increaseHitPresents();
-
-        // const ouch = new createjs.Text("", "bold 90px Gloria Hallelujah", "#000");
-        // ouch.text = "YIKES!";
-        // // ouch.y = 300;
-        // ouch.y = 270;
-        // ouch.x = (900 - ouch.getBounds().width) / 2;
-        // const beCareful = new createjs.Text("", "bold 40px Gloria Hallelujah", "#000");
-        // beCareful.text = "Be careful!";
-        // beCareful.y = 400;
-        // beCareful.x = (900 - beCareful.getBounds().width) / 2;
-
         this.stage.addChild(yikes, beCareful);
         setTimeout(() => this.stage.removeChild(yikes, beCareful), 1500);
       }

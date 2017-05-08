@@ -1,3 +1,10 @@
+export const resize = (...texts) => {
+  texts.forEach(text => {
+    const width = text.getBounds().width;
+    text.x = (900 - width) / 2;
+  })
+}
+
 export const restart = new createjs.Text("(Click anywhere to start)", "bold 25px Gloria Hallelujah", "#000000");
 restart.y = 480;
 
@@ -13,9 +20,9 @@ presentHitPercentage.y = 400;
 export const yikes = new createjs.Text("", "bold 90px Gloria Hallelujah", "#000");
 yikes.text = "YIKES!";
 yikes.y = 270;
-yikes.x = (900 - yikes.getBounds().width) / 2;
 
 export const beCareful = new createjs.Text("", "bold 40px Gloria Hallelujah", "#000");
 beCareful.text = "Be careful!";
 beCareful.y = 400;
-beCareful.x = (900 - beCareful.getBounds().width) / 2;
+
+resize(yikes, beCareful);

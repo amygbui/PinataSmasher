@@ -1,6 +1,6 @@
 import Game from './game';
 import {
-  restart, start, pinataHitPercentage, presentHitPercentage
+  restart, start, pinataHitPercentage, presentHitPercentage, resize
 } from './text';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -22,9 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   start.addEventListener("click", (e) => {
     stage.removeChild(start, restart, pinataHitPercentage, presentHitPercentage);
     restart.text = "(Click anywhere to restart)";
-
     game.start();
-    stage.update();
 
     setTimeout(() => {
       start.text = `Game over! Your score was ${score.score}`;
@@ -37,13 +35,5 @@ document.addEventListener('DOMContentLoaded', () => {
         pinataHitPercentage, presentHitPercentage,
       );
     }, 61000);
-    // change time back to 61 seconds when in production
   });
 });
-
-function resize(...texts) {
-  texts.forEach(text => {
-    const width = text.getBounds().width;
-    text.x = (900 - width) / 2;
-  })
-}

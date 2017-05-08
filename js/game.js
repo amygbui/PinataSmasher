@@ -19,6 +19,7 @@ class Game {
   start() {
     this.beginGame = setInterval(this.generatePinatas, 2000);
     this.timer.start();
+    this.stage.update();
   }
 
   generatePinatas() {
