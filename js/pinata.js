@@ -26,7 +26,6 @@ class Pinata {
     this.generatePinata = this.generatePinata.bind(this);
     this.pinataReaction = this.pinataReaction.bind(this);
     this.addListener = this.addListener.bind(this);
-    // this.music = this.music.bind(this);
 
     this.smashPinata = this.smashPinata.bind(this);
     this.dropCandy = this.dropCandy.bind(this);

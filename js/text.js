@@ -27,7 +27,6 @@ beCareful.y = 400;
 
 resize(yikes, beCareful);
 
-
 export const pause = new createjs.Bitmap("./images/pause.png");
 pause.y = 675;
 pause.x = 15;
@@ -40,3 +39,17 @@ const phit = new createjs.Shape();
 phit.graphics.beginFill("#000").drawRect(0, 0, 53, 53);
 pause.hitArea = phit;
 play.hitArea = phit;
+
+export const endGameMessage = (score, stats, game, stage, time) => {
+  setTimeout(() => {
+    start.text = `Game over! Your score was ${score.score}`;
+    pinataHitPercentage.text = `Pinatas Hit: ${stats.pinataHitPercentage()}%`;
+    presentHitPercentage.text = `Presents Avoided: ${100 - stats.presentHitPercentage()}%`;
+    game.end();
+    resize(start, pinataHitPercentage, presentHitPercentage);
+    stage.addChild(
+      start, restart, pause,
+      pinataHitPercentage, presentHitPercentage
+    );
+  }, time);
+}

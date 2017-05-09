@@ -122,6 +122,17 @@ phit.graphics.beginFill("#000").drawRect(0, 0, 53, 53);
 pause.hitArea = phit;
 play.hitArea = phit;
 
+var endGameMessage = exports.endGameMessage = function endGameMessage(score, stats, game, stage, time) {
+  setTimeout(function () {
+    start.text = "Game over! Your score was " + score.score;
+    pinataHitPercentage.text = "Pinatas Hit: " + stats.pinataHitPercentage() + "%";
+    presentHitPercentage.text = "Presents Avoided: " + (100 - stats.presentHitPercentage()) + "%";
+    game.end();
+    resize(start, pinataHitPercentage, presentHitPercentage);
+    stage.addChild(start, restart, pause, pinataHitPercentage, presentHitPercentage);
+  }, time);
+};
+
 /***/ }),
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -337,7 +348,6 @@ var Pinata = function () {
     this.generatePinata = this.generatePinata.bind(this);
     this.pinataReaction = this.pinataReaction.bind(this);
     this.addListener = this.addListener.bind(this);
-    // this.music = this.music.bind(this);
 
     this.smashPinata = this.smashPinata.bind(this);
     this.dropCandy = this.dropCandy.bind(this);
@@ -488,15 +498,11 @@ document.addEventListener('DOMContentLoaded', function () {
     stage.removeChild(_text.start, _text.restart, _text.pinataHitPercentage, _text.presentHitPercentage);
     _text.restart.text = "(Click anywhere to restart)";
     game.start();
+    var endScore = score.score;
+    var PHT1 = stats.pinataHitPercentage();
+    var PHT2 = stats.presentHitPercentage();
 
-    setTimeout(function () {
-      _text.start.text = 'Game over! Your score was ' + score.score;
-      _text.pinataHitPercentage.text = 'Pinatas Hit: ' + stats.pinataHitPercentage() + '%';
-      _text.presentHitPercentage.text = 'Presents Avoided: ' + (100 - stats.presentHitPercentage()) + '%';
-      game.end();
-      (0, _text.resize)(_text.start, _text.pinataHitPercentage, _text.presentHitPercentage);
-      stage.addChild(_text.start, _text.restart, _text.pinataHitPercentage, _text.presentHitPercentage);
-    }, 61000);
+    (0, _text.endGameMessage)(score, stats, game, stage, 5000);
   });
 });
 

@@ -1,7 +1,8 @@
 import Game from './game';
 import Pause from './pause';
 import {
-  restart, start, resize, pinataHitPercentage, presentHitPercentage
+  restart, start, resize, endGameMessage,
+  pinataHitPercentage, presentHitPercentage
 } from './text';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -21,21 +22,15 @@ document.addEventListener('DOMContentLoaded', () => {
   stage.addChild(start, restart, pinataHitPercentage, presentHitPercentage);
   stage.update();
 
+
   start.addEventListener("click", (e) => {
     stage.removeChild(start, restart, pinataHitPercentage, presentHitPercentage);
     restart.text = "(Click anywhere to restart)";
     game.start();
+    const endScore = score.score;
+    const PHT1 = stats.pinataHitPercentage();
+    const PHT2 = stats.presentHitPercentage();
 
-    setTimeout(() => {
-      start.text = `Game over! Your score was ${score.score}`;
-      pinataHitPercentage.text = `Pinatas Hit: ${stats.pinataHitPercentage()}%`;
-      presentHitPercentage.text = `Presents Avoided: ${100 - stats.presentHitPercentage()}%`;
-      game.end();
-      resize(start, pinataHitPercentage, presentHitPercentage);
-      stage.addChild(
-        start, restart,
-        pinataHitPercentage, presentHitPercentage,
-      );
-    }, 61000);
+    endGameMessage(score, stats, game, stage, 5000);
   });
 });
