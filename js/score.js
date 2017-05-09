@@ -1,4 +1,5 @@
- import Projectile from './projectile';
+import Projectile from './projectile';
+// import { pause } from './text';
 
 class Score {
   constructor(stage, timer) {
@@ -26,8 +27,7 @@ class Score {
     } else {
       this.score -= 50;
       this.stage.removeAllChildren();
-      this.stage.addChild(this.scoreText);
-      this.stage.addChild(this.timer.time);
+      this.stage.addChild(this.scoreText, this.timer.time)//, pause);
     }
 
     this.scoreText.text = `Score: ${this.score}`;

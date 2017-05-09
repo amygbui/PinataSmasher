@@ -1,6 +1,7 @@
 import Game from './game';
+import Pause from './pause';
 import {
-  restart, start, pinataHitPercentage, presentHitPercentage, resize
+  restart, start, resize, pinataHitPercentage, presentHitPercentage
 } from './text';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -9,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const stage = new createjs.Stage(canvas);
   const game = new Game(canvas, stage);
   const { score, stats } = game;
+  const pause = new Pause(game, stage);
   stage.enableMouseOver(20);
 
   const hit = new createjs.Shape();

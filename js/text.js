@@ -26,3 +26,7 @@ beCareful.text = "Be careful!";
 beCareful.y = 400;
 
 resize(yikes, beCareful);
+
+export const pause = new createjs.Text("Pause", "bold 25px Gloria Hallelujah", "#000000");
+pause.x = 100;
+pause.y = 100;

@@ -109,6 +109,10 @@ beCareful.y = 400;
 
 resize(yikes, beCareful);
 
+var pause = exports.pause = new createjs.Text("Pause", "bold 25px Gloria Hallelujah", "#000000");
+pause.x = 100;
+pause.y = 100;
+
 /***/ }),
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -214,6 +218,8 @@ var _projectile = __webpack_require__(1);
 
 var _projectile2 = _interopRequireDefault(_projectile);
 
+var _text = __webpack_require__(0);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -238,6 +244,7 @@ var Game = function () {
     value: function start() {
       this.beginGame = setInterval(this.generatePinatas, 2000);
       this.timer.start();
+      this.stage.addChild(_text.pause.pause);
       this.stage.update();
     }
   }, {
@@ -258,6 +265,18 @@ var Game = function () {
       this.stage.removeAllChildren();
       this.stage.addChild(this.score.scoreText, this.timer.time);
       clearInterval(this.beginGame);
+    }
+  }, {
+    key: 'pause',
+    value: function pause() {
+      clearInterval(this.beginGame);
+      this.timer.pause();
+    }
+  }, {
+    key: 'unpause',
+    value: function unpause() {
+      this.timer.unpause();
+      this.start();
     }
   }]);
 
@@ -431,6 +450,10 @@ var _game = __webpack_require__(2);
 
 var _game2 = _interopRequireDefault(_game);
 
+var _pause = __webpack_require__(8);
+
+var _pause2 = _interopRequireDefault(_pause);
+
 var _text = __webpack_require__(0);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -443,6 +466,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var score = game.score,
       stats = game.stats;
 
+  var pause = new _pause2.default(game, stage);
   stage.enableMouseOver(20);
 
   var hit = new createjs.Shape();
@@ -490,6 +514,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+// import { pause } from './text';
+
 var Score = function () {
   function Score(stage, timer) {
     _classCallCheck(this, Score);
@@ -521,8 +547,7 @@ var Score = function () {
       } else {
         this.score -= 50;
         this.stage.removeAllChildren();
-        this.stage.addChild(this.scoreText);
-        this.stage.addChild(this.timer.time);
+        this.stage.addChild(this.scoreText, this.timer.time); //, pause);
       }
 
       this.scoreText.text = "Score: " + this.score;
@@ -658,12 +683,114 @@ var Timer = function () {
       this.timeLeft = 60;
       this.time.text = this.timeLeft;
     }
+  }, {
+    key: "pause",
+    value: function pause() {
+      clearInterval(this.timer);
+    }
+  }, {
+    key: "unpause",
+    value: function unpause() {
+      start();
+    }
   }]);
 
   return Timer;
 }();
 
 exports.default = Timer;
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Pause = function () {
+  function Pause(game, stage) {
+    _classCallCheck(this, Pause);
+
+    this.game = game;
+    this.stage = stage;
+
+    this.createButtons();
+    game.stage.addChild(this.pause);
+
+    this.pauseGame = this.pauseGame.bind(this);
+    this.unpauseGame = this.unpauseGame.bind(this);
+    this.addClick = this.addClick.bind(this);
+
+    this.paused = false;
+    this.addClick(this.play);
+    this.addClick(this.pause);
+  }
+
+  _createClass(Pause, [{
+    key: "createButtons",
+    value: function createButtons() {
+      this.pause = new createjs.Bitmap("./images/pause.png");
+      this.pause.y = 675;
+      this.pause.x = 15;
+
+      this.play = new createjs.Bitmap("./images/play.png");
+      this.play.y = 675;
+      this.play.x = 15;
+
+      var hit = new createjs.Shape();
+      hit.graphics.beginFill("#000").drawRect(0, 0, 53, 53);
+      this.stage.update();
+      this.pause.hitArea = hit;
+      this.play.hitArea = hit;
+    }
+  }, {
+    key: "addClick",
+    value: function addClick(button) {
+      var _this = this;
+
+      console.log(this.paused);
+
+      button.addEventListener("click", function () {
+        if (_this.paused) {
+          _this.unpauseGame();
+        } else {
+          _this.pauseGame();
+        }
+
+        console.log(_this.paused);
+        _this.stage.update();
+      });
+    }
+  }, {
+    key: "pauseGame",
+    value: function pauseGame() {
+      this.stage.removeChild(this.pause);
+      this.stage.addChild(this.play);
+      this.paused = true;
+      this.game.pause();
+    }
+  }, {
+    key: "unpauseGame",
+    value: function unpauseGame() {
+      this.stage.removeChild(this.play);
+      this.stage.addChild(this.pause);
+      this.paused = false;
+      this.game.unpause();
+    }
+  }]);
+
+  return Pause;
+}();
+
+exports.default = Pause;
 
 /***/ })
 /******/ ]);

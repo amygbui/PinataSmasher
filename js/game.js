@@ -2,6 +2,7 @@ import Score from './score';
 import Stats from './stats';
 import Timer from './timer';
 import Projectile from './projectile';
+import { pause } from './text';
 
 class Game {
   constructor(canvas, stage) {
@@ -19,6 +20,7 @@ class Game {
   start() {
     this.beginGame = setInterval(this.generatePinatas, 2000);
     this.timer.start();
+    this.stage.addChild(pause.pause);
     this.stage.update();
   }
 
@@ -37,6 +39,16 @@ class Game {
     this.stage.removeAllChildren();
     this.stage.addChild(this.score.scoreText, this.timer.time);
     clearInterval(this.beginGame);
+  }
+
+  pause() {
+    clearInterval(this.beginGame);
+    this.timer.pause();
+  }
+
+  unpause() {
+    this.timer.unpause();
+    this.start();
   }
 }
 

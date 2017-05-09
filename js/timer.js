@@ -22,6 +22,14 @@ class Timer {
     this.timeLeft = 60;
     this.time.text = this.timeLeft;
   }
+
+  pause() {
+    clearInterval(this.timer);
+  }
+
+  unpause() {
+    start();
+  }
 }
 
 export default Timer;
