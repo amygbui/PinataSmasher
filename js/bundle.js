@@ -238,6 +238,8 @@ var _projectile = __webpack_require__(1);
 
 var _projectile2 = _interopRequireDefault(_projectile);
 
+var _text = __webpack_require__(0);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -262,9 +264,20 @@ var Game = function () {
   _createClass(Game, [{
     key: 'start',
     value: function start() {
+      var _this = this;
+
       this.beginGame = setInterval(this.generatePinatas, 2000);
       this.timer.start();
       this.stage.update();
+
+      this.endTimer = setTimeout(function () {
+        _text.start.text = 'Game over! Your score was ' + _this.score.score;
+        _text.pinataHitPercentage.text = 'Pinatas Hit: ' + _this.stats.pinataHitPercentage() + '%';
+        _text.presentHitPercentage.text = 'Presents Avoided: ' + (100 - _this.stats.presentHitPercentage()) + '%';
+        _this.end();
+        (0, _text.resize)(_text.start, _text.pinataHitPercentage, _text.presentHitPercentage);
+        _this.stage.addChild(_text.start, _text.restart, _text.pause, _text.pinataHitPercentage, _text.presentHitPercentage);
+      }, 6100);
     }
   }, {
     key: 'generatePinatas',
@@ -289,13 +302,9 @@ var Game = function () {
     key: 'pause',
     value: function pause() {
       clearInterval(this.beginGame);
+      clearInterval(this.endTimer);
       this.timer.pause();
     }
-
-    // unpause() {
-    //   this.start();
-    // }
-
   }]);
 
   return Game;
@@ -498,11 +507,6 @@ document.addEventListener('DOMContentLoaded', function () {
     stage.removeChild(_text.start, _text.restart, _text.pinataHitPercentage, _text.presentHitPercentage);
     _text.restart.text = "(Click anywhere to restart)";
     game.start();
-    var endScore = score.score;
-    var PHT1 = stats.pinataHitPercentage();
-    var PHT2 = stats.presentHitPercentage();
-
-    (0, _text.endGameMessage)(score, stats, game, stage, 5000);
   });
 });
 

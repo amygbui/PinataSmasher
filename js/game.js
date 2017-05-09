@@ -2,6 +2,8 @@ import Score from './score';
 import Stats from './stats';
 import Timer from './timer';
 import Projectile from './projectile';
+import { start, restart, pause, resize,
+  pinataHitPercentage, presentHitPercentage } from './text';
 
 class Game {
   constructor(canvas, stage) {
@@ -22,6 +24,18 @@ class Game {
     this.beginGame = setInterval(this.generatePinatas, 2000);
     this.timer.start();
     this.stage.update();
+
+    this.endTimer = setTimeout(() => {
+      start.text = `Game over! Your score was ${this.score.score}`;
+      pinataHitPercentage.text = `Pinatas Hit: ${this.stats.pinataHitPercentage()}%`;
+      presentHitPercentage.text = `Presents Avoided: ${100 - this.stats.presentHitPercentage()}%`;
+      this.end();
+      resize(start, pinataHitPercentage, presentHitPercentage);
+      this.stage.addChild(
+        start, restart, pause,
+        pinataHitPercentage, presentHitPercentage
+      );
+    }, 6100);
   }
 
   generatePinatas() {
@@ -43,12 +57,9 @@ class Game {
 
   pause() {
     clearInterval(this.beginGame);
+    clearInterval(this.endTimer);
     this.timer.pause();
   }
-
-  // unpause() {
-  //   this.start();
-  // }
 }
 
 export default Game;
