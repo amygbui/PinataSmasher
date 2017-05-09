@@ -258,12 +258,11 @@ var Game = function () {
     this.generatePinatas = this.generatePinatas.bind(this);
     this.end = this.end.bind(this);
     this.pause = this.pause.bind(this);
-    // this.unpause = this.unpause.bind(this);
   }
 
   _createClass(Game, [{
     key: 'start',
-    value: function start() {
+    value: function start(time) {
       var _this = this;
 
       this.beginGame = setInterval(this.generatePinatas, 2000);
@@ -277,7 +276,7 @@ var Game = function () {
         _this.end();
         (0, _text.resize)(_text.start, _text.pinataHitPercentage, _text.presentHitPercentage);
         _this.stage.addChild(_text.start, _text.restart, _text.pause, _text.pinataHitPercentage, _text.presentHitPercentage);
-      }, 6100);
+      }, time);
     }
   }, {
     key: 'generatePinatas',
@@ -506,7 +505,7 @@ document.addEventListener('DOMContentLoaded', function () {
   _text.start.addEventListener("click", function (e) {
     stage.removeChild(_text.start, _text.restart, _text.pinataHitPercentage, _text.presentHitPercentage);
     _text.restart.text = "(Click anywhere to restart)";
-    game.start();
+    game.start(6100);
   });
 });
 
@@ -692,8 +691,6 @@ var Timer = function () {
         _this.stage.addChild(_this.time);
         _this.stage.update();
       }, 1000);
-
-      console.log(this.timer);
     }
   }, {
     key: "reset",
@@ -780,7 +777,8 @@ var Pause = function () {
       this.stage.removeChild(this.play);
       this.stage.addChild(this.pause);
       this.paused = false;
-      this.game.start();
+      console.log(this.game.timer.timeLeft);
+      this.game.start(this.game.timer.timeLeft * 1000);
     }
   }]);
 

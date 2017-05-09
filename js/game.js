@@ -17,10 +17,9 @@ class Game {
     this.generatePinatas = this.generatePinatas.bind(this);
     this.end = this.end.bind(this);
     this.pause = this.pause.bind(this);
-    // this.unpause = this.unpause.bind(this);
   }
 
-  start() {
+  start(time) {
     this.beginGame = setInterval(this.generatePinatas, 2000);
     this.timer.start();
     this.stage.update();
@@ -35,7 +34,7 @@ class Game {
         start, restart, pause,
         pinataHitPercentage, presentHitPercentage
       );
-    }, 6100);
+    }, time);
   }
 
   generatePinatas() {

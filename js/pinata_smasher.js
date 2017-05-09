@@ -25,6 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
   start.addEventListener("click", (e) => {
     stage.removeChild(start, restart, pinataHitPercentage, presentHitPercentage);
     restart.text = "(Click anywhere to restart)";
-    game.start();
+    game.start(6100);
   });
 });
