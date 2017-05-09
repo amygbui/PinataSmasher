@@ -15,9 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
   stage.enableMouseOver(20);
 
   const hit = new createjs.Shape();
-	hit.graphics.beginFill("#000").drawRect(0, -270, canvas.width, canvas.height);
-	start.hitArea = hit;
+	// hit.graphics.beginFill("#000").drawRect(0, -270, canvas.width, canvas.height);
+  hit.graphics.beginFill("#000").drawRect(-210, -270, canvas.width, canvas.height);
 
+	start.hitArea = hit;
+  resize(start);
   resize(restart, start, pinataHitPercentage, presentHitPercentage);
   stage.addChild(start, restart, pinataHitPercentage, presentHitPercentage);
   stage.update();

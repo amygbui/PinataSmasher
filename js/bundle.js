@@ -495,9 +495,11 @@ document.addEventListener('DOMContentLoaded', function () {
   stage.enableMouseOver(20);
 
   var hit = new createjs.Shape();
-  hit.graphics.beginFill("#000").drawRect(0, -270, canvas.width, canvas.height);
-  _text.start.hitArea = hit;
+  // hit.graphics.beginFill("#000").drawRect(0, -270, canvas.width, canvas.height);
+  hit.graphics.beginFill("#000").drawRect(-210, -270, canvas.width, canvas.height);
 
+  _text.start.hitArea = hit;
+  (0, _text.resize)(_text.start);
   (0, _text.resize)(_text.restart, _text.start, _text.pinataHitPercentage, _text.presentHitPercentage);
   stage.addChild(_text.start, _text.restart, _text.pinataHitPercentage, _text.presentHitPercentage);
   stage.update();
