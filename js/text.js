@@ -27,6 +27,16 @@ beCareful.y = 400;
 
 resize(yikes, beCareful);
 
-export const pause = new createjs.Text("Pause", "bold 25px Gloria Hallelujah", "#000000");
-pause.x = 100;
-pause.y = 100;
+
+export const pause = new createjs.Bitmap("./images/pause.png");
+pause.y = 675;
+pause.x = 15;
+
+export const play = new createjs.Bitmap("./images/play.png");
+play.y = 675;
+play.x = 15;
+
+const phit = new createjs.Shape();
+phit.graphics.beginFill("#000").drawRect(0, 0, 53, 53);
+pause.hitArea = phit;
+play.hitArea = phit;

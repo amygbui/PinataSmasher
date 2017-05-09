@@ -15,6 +15,8 @@ class Timer {
       this.stage.addChild(this.time);
       this.stage.update();
     }, 1000);
+
+    console.log(this.timer);
   }
 
   reset() {
@@ -25,10 +27,6 @@ class Timer {
 
   pause() {
     clearInterval(this.timer);
-  }
-
-  unpause() {
-    start();
   }
 }
 

@@ -109,9 +109,18 @@ beCareful.y = 400;
 
 resize(yikes, beCareful);
 
-var pause = exports.pause = new createjs.Text("Pause", "bold 25px Gloria Hallelujah", "#000000");
-pause.x = 100;
-pause.y = 100;
+var pause = exports.pause = new createjs.Bitmap("./images/pause.png");
+pause.y = 675;
+pause.x = 15;
+
+var play = exports.play = new createjs.Bitmap("./images/play.png");
+play.y = 675;
+play.x = 15;
+
+var phit = new createjs.Shape();
+phit.graphics.beginFill("#000").drawRect(0, 0, 53, 53);
+pause.hitArea = phit;
+play.hitArea = phit;
 
 /***/ }),
 /* 1 */
@@ -218,8 +227,6 @@ var _projectile = __webpack_require__(1);
 
 var _projectile2 = _interopRequireDefault(_projectile);
 
-var _text = __webpack_require__(0);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -237,6 +244,8 @@ var Game = function () {
     this.start = this.start.bind(this);
     this.generatePinatas = this.generatePinatas.bind(this);
     this.end = this.end.bind(this);
+    this.pause = this.pause.bind(this);
+    // this.unpause = this.unpause.bind(this);
   }
 
   _createClass(Game, [{
@@ -244,7 +253,6 @@ var Game = function () {
     value: function start() {
       this.beginGame = setInterval(this.generatePinatas, 2000);
       this.timer.start();
-      this.stage.addChild(_text.pause.pause);
       this.stage.update();
     }
   }, {
@@ -272,12 +280,11 @@ var Game = function () {
       clearInterval(this.beginGame);
       this.timer.pause();
     }
-  }, {
-    key: 'unpause',
-    value: function unpause() {
-      this.timer.unpause();
-      this.start();
-    }
+
+    // unpause() {
+    //   this.start();
+    // }
+
   }]);
 
   return Game;
@@ -510,11 +517,11 @@ var _projectile = __webpack_require__(1);
 
 var _projectile2 = _interopRequireDefault(_projectile);
 
+var _text = __webpack_require__(0);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-// import { pause } from './text';
 
 var Score = function () {
   function Score(stage, timer) {
@@ -526,7 +533,7 @@ var Score = function () {
     this.fixWidth = this.fixWidth.bind(this);
     this.updateScore = this.updateScore.bind(this);
 
-    this.scoreText = new createjs.Text("Score: " + this.score, "bold 45px Gloria Hallelujah", "#000000");
+    this.scoreText = new createjs.Text('Score: ' + this.score, "bold 45px Gloria Hallelujah", "#000000");
     this.scoreText.y = 15;
     this.fixWidth();
 
@@ -534,30 +541,30 @@ var Score = function () {
   }
 
   _createClass(Score, [{
-    key: "fixWidth",
+    key: 'fixWidth',
     value: function fixWidth() {
       var startWidth = this.scoreText.getBounds().width;
       this.scoreText.x = (900 - startWidth) / 2;
     }
   }, {
-    key: "updateScore",
+    key: 'updateScore',
     value: function updateScore(type) {
       if (type === "pinata") {
         this.score += 10;
       } else {
         this.score -= 50;
         this.stage.removeAllChildren();
-        this.stage.addChild(this.scoreText, this.timer.time); //, pause);
+        this.stage.addChild(this.scoreText, this.timer.time, _text.pause);
       }
 
-      this.scoreText.text = "Score: " + this.score;
+      this.scoreText.text = 'Score: ' + this.score;
       this.fixWidth();
     }
   }, {
-    key: "reset",
+    key: 'reset',
     value: function reset() {
       this.score = 0;
-      this.scoreText.text = "Score: " + this.score;
+      this.scoreText.text = 'Score: ' + this.score;
     }
   }]);
 
@@ -675,6 +682,8 @@ var Timer = function () {
         _this.stage.addChild(_this.time);
         _this.stage.update();
       }, 1000);
+
+      console.log(this.timer);
     }
   }, {
     key: "reset",
@@ -687,11 +696,6 @@ var Timer = function () {
     key: "pause",
     value: function pause() {
       clearInterval(this.timer);
-    }
-  }, {
-    key: "unpause",
-    value: function unpause() {
-      start();
     }
   }]);
 
@@ -713,6 +717,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _text = __webpack_require__(0);
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Pause = function () {
@@ -722,7 +728,8 @@ var Pause = function () {
     this.game = game;
     this.stage = stage;
 
-    this.createButtons();
+    this.pause = _text.pause;
+    this.play = _text.play;
     game.stage.addChild(this.pause);
 
     this.pauseGame = this.pauseGame.bind(this);
@@ -735,28 +742,9 @@ var Pause = function () {
   }
 
   _createClass(Pause, [{
-    key: "createButtons",
-    value: function createButtons() {
-      this.pause = new createjs.Bitmap("./images/pause.png");
-      this.pause.y = 675;
-      this.pause.x = 15;
-
-      this.play = new createjs.Bitmap("./images/play.png");
-      this.play.y = 675;
-      this.play.x = 15;
-
-      var hit = new createjs.Shape();
-      hit.graphics.beginFill("#000").drawRect(0, 0, 53, 53);
-      this.stage.update();
-      this.pause.hitArea = hit;
-      this.play.hitArea = hit;
-    }
-  }, {
     key: "addClick",
     value: function addClick(button) {
       var _this = this;
-
-      console.log(this.paused);
 
       button.addEventListener("click", function () {
         if (_this.paused) {
@@ -765,7 +753,6 @@ var Pause = function () {
           _this.pauseGame();
         }
 
-        console.log(_this.paused);
         _this.stage.update();
       });
     }
@@ -783,7 +770,7 @@ var Pause = function () {
       this.stage.removeChild(this.play);
       this.stage.addChild(this.pause);
       this.paused = false;
-      this.game.unpause();
+      this.game.start();
     }
   }]);
 
