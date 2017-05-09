@@ -267,15 +267,17 @@ var Game = function () {
 
       this.beginGame = setInterval(this.generatePinatas, 2000);
       this.timer.start();
+      this.stage.addChild(_text.pause);
       this.stage.update();
 
       this.endTimer = setTimeout(function () {
         _text.start.text = 'Game over! Your score was ' + _this.score.score;
+        //pause,
         _text.pinataHitPercentage.text = 'Pinatas Hit: ' + _this.stats.pinataHitPercentage() + '%';
         _text.presentHitPercentage.text = 'Presents Avoided: ' + (100 - _this.stats.presentHitPercentage()) + '%';
         _this.end();
         (0, _text.resize)(_text.start, _text.pinataHitPercentage, _text.presentHitPercentage);
-        _this.stage.addChild(_text.start, _text.restart, _text.pause, _text.pinataHitPercentage, _text.presentHitPercentage);
+        _this.stage.addChild(_text.start, _text.restart, _text.pinataHitPercentage, _text.presentHitPercentage);
       }, time);
     }
   }, {
@@ -495,7 +497,6 @@ document.addEventListener('DOMContentLoaded', function () {
   stage.enableMouseOver(20);
 
   var hit = new createjs.Shape();
-  // hit.graphics.beginFill("#000").drawRect(0, -270, canvas.width, canvas.height);
   hit.graphics.beginFill("#000").drawRect(-210, -270, canvas.width, canvas.height);
 
   _text.start.hitArea = hit;
@@ -507,7 +508,7 @@ document.addEventListener('DOMContentLoaded', function () {
   _text.start.addEventListener("click", function (e) {
     stage.removeChild(_text.start, _text.restart, _text.pinataHitPercentage, _text.presentHitPercentage);
     _text.restart.text = "(Click anywhere to restart)";
-    game.start(6100);
+    game.start(61000);
   });
 });
 

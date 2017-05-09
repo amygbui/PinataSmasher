@@ -22,6 +22,7 @@ class Game {
   start(time) {
     this.beginGame = setInterval(this.generatePinatas, 2000);
     this.timer.start();
+    this.stage.addChild(pause);
     this.stage.update();
 
     this.endTimer = setTimeout(() => {
@@ -31,7 +32,7 @@ class Game {
       this.end();
       resize(start, pinataHitPercentage, presentHitPercentage);
       this.stage.addChild(
-        start, restart, pause,
+        start, restart, //pause,
         pinataHitPercentage, presentHitPercentage
       );
     }, time);
