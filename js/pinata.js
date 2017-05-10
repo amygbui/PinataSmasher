@@ -30,6 +30,9 @@ class Pinata {
     this.smashPinata = this.smashPinata.bind(this);
     this.dropCandy = this.dropCandy.bind(this);
     this.deletePinata = this.deletePinata.bind(this);
+
+    const dirs = [1, -1];
+    this.direction = dirs[Math.floor(Math.random() * 2)];
   }
 
   generatePinata(interval) {
@@ -50,6 +53,7 @@ class Pinata {
 
     pinata.x = Math.round(Math.random() * this.canvas.width);
     pinata.y = 800;
+    pinata.rotation = Math.random() * 360;
     this.stage.addChild(this.pinata);
 
     this.addListener(pinata, interval);

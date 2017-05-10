@@ -20,7 +20,7 @@ class Projectile {
 
   setVelocity() {
     this.x_velocity = Math.random() * 12 * this.xDirection;
-    this.y_velocity = (Math.random() * 12) + 33;
+    this.y_velocity = (Math.random() * 10) + 33;
   }
 
   tick(event) {
@@ -31,6 +31,7 @@ class Projectile {
 
     pinata.y = pinata.y - (time * (this.y_velocity - (30 * time)));
     pinata.x = pinata.x + this.x_velocity;
+    pinata.rotation += 3 * this.xDirection;
 
     if (pinata.y > 800) {
       this.delete();

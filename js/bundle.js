@@ -178,7 +178,7 @@ var Projectile = function () {
     key: 'setVelocity',
     value: function setVelocity() {
       this.x_velocity = Math.random() * 12 * this.xDirection;
-      this.y_velocity = Math.random() * 12 + 33;
+      this.y_velocity = Math.random() * 10 + 33;
     }
   }, {
     key: 'tick',
@@ -190,6 +190,7 @@ var Projectile = function () {
 
       pinata.y = pinata.y - time * (this.y_velocity - 30 * time);
       pinata.x = pinata.x + this.x_velocity;
+      pinata.rotation += 3 * this.xDirection;
 
       if (pinata.y > 800) {
         this.delete();
@@ -438,6 +439,9 @@ var Pinata = function () {
     this.smashPinata = this.smashPinata.bind(this);
     this.dropCandy = this.dropCandy.bind(this);
     this.deletePinata = this.deletePinata.bind(this);
+
+    var dirs = [1, -1];
+    this.direction = dirs[Math.floor(Math.random() * 2)];
   }
 
   _createClass(Pinata, [{
@@ -460,6 +464,7 @@ var Pinata = function () {
 
       pinata.x = Math.round(Math.random() * this.canvas.width);
       pinata.y = 800;
+      pinata.rotation = Math.random() * 360;
       this.stage.addChild(this.pinata);
 
       this.addListener(pinata, interval);
