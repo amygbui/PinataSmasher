@@ -20,22 +20,24 @@ class Game {
   }
 
   start(time) {
-    this.beginGame = setInterval(this.generatePinatas, 2000);
-    this.timer.start();
-    this.stage.addChild(pause);
-    this.stage.update();
+    createjs.Ticker.addEventListener("tick", this.generatePinatas);
 
-    this.endTimer = setTimeout(() => {
-      start.text = `Game over! Your score was ${this.score.score}`;
-      pinataHitPercentage.text = `Pinatas Hit: ${this.stats.pinataHitPercentage()}%`;
-      presentHitPercentage.text = `Presents Avoided: ${100 - this.stats.presentHitPercentage()}%`;
-      this.end();
-      resize(start, pinataHitPercentage, presentHitPercentage);
-      this.stage.addChild(
-        start, restart, //pause,
-        pinataHitPercentage, presentHitPercentage
-      );
-    }, time);
+    // this.beginGame = setInterval(this.generatePinatas, 2000);
+    // this.timer.start();
+    // this.stage.addChild(pause);
+    // this.stage.update();
+    //
+    // this.endTimer = setTimeout(() => {
+    //   start.text = `Game over! Your score was ${this.score.score}`;
+    //   pinataHitPercentage.text = `Pinatas Hit: ${this.stats.pinataHitPercentage()}%`;
+    //   presentHitPercentage.text = `Presents Avoided: ${100 - this.stats.presentHitPercentage()}%`;
+    //   this.end();
+    //   resize(start, pinataHitPercentage, presentHitPercentage);
+    //   this.stage.addChild(
+    //     start, restart, //pause,
+    //     pinataHitPercentage, presentHitPercentage
+    //   );
+    // }, time);
   }
 
   generatePinatas() {
