@@ -4,6 +4,7 @@ import {
   restart, start, resize,
   pinataHitPercentage, presentHitPercentage
 } from './text';
+import registerListeners from './modal';
 
 document.addEventListener('DOMContentLoaded', () => {
   window.stage = stage;
@@ -28,4 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
     restart.text = "(Click anywhere to restart)";
     game.start(61000);
   });
+
+  registerListeners();
 });

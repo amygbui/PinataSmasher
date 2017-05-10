@@ -1,4 +1,4 @@
-html, body, h1, ul, li, a, h1 {
+html, body, h1, ul, li, a, h1, button {
   margin: 0px;
   padding: 0px;
   border: 0px;
@@ -14,6 +14,20 @@ html, body, h1, ul, li, a, h1 {
 
 ul, li {
   list-style: none;
+}
+
+a, button, #close {
+  cursor: pointer;
+}
+
+button {
+  padding: 10px 15px;
+  margin-top: 30px;
+}
+
+button:hover {
+  background: #e99aaf;
+  box-shadow: inset 0 0 20px #d3899d;
 }
 
 body {
@@ -34,17 +48,40 @@ h1 {
 
 div {
   /*position: relative;*/
-  /*display: inline-block;*/
-  margin-top: 100px;
+  margin-top: 20px;
   display: flex;
+  /*flex-direction: column;*/
   justify-content: center;
 }
 
 section {
-  /*position: absolute;*/
-  width: 220px;
-  margin: 30px;
-  /*left: -250px;*/
+  position: absolute;
+  background-color: rgba(0,0,0,0.4);
+  width: 900px;
+  height: 760px;
+  display: flex;
+}
+
+article {
+  margin: auto;
+  padding: 20px 40px;
+  width: 350px;
+  border-radius: 10px;
+  background: #f3e7ea;
+}
+
+#close {
+  position: absolute;
+  margin: 0;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 30px;
+  justify-content: flex-end;
+  left: 600px;
+}
+
+#instructions, #pause {
+  display: none;
 }
 
 #pinata {
@@ -60,6 +97,7 @@ section {
 .contact ul {
   display: flex;
   justify-content: space-between;
+  margin-top: 20px;
 }
 
 .contact a {
@@ -67,8 +105,9 @@ section {
   padding: 10px 20px;
 }
 
-.contact a:hover {
+.contact a:hover, button {
   color: #fff;
   background: #d3899d;
   border-radius: 5px;
+  box-shadow: inset 0 0 20px #d4768f;
 }

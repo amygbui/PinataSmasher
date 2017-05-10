@@ -590,6 +590,10 @@ var _pause2 = _interopRequireDefault(_pause);
 
 var _text = __webpack_require__(0);
 
+var _modal = __webpack_require__(9);
+
+var _modal2 = _interopRequireDefault(_modal);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -617,6 +621,8 @@ document.addEventListener('DOMContentLoaded', function () {
     _text.restart.text = "(Click anywhere to restart)";
     game.start(61000);
   });
+
+  (0, _modal2.default)();
 });
 
 /***/ }),
@@ -820,6 +826,46 @@ var Timer = function () {
 }();
 
 exports.default = Timer;
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var registerListeners = function registerListeners() {
+  var instructions = document.getElementById('instructions');
+  var instrBtn = document.getElementById('instrBtn');
+  var close = document.getElementById('close');
+
+  instrBtn.onclick = function () {
+    instructions.style.display = "flex";
+  };
+
+  close.onclick = function () {
+    instructions.style.display = "none";
+  };
+
+  // const pause = document.getElementById('pause');
+  //
+  // pause.onclick = () => {
+  //   pause.style.display = "flex";
+  // }
+
+  window.onclick = function (event) {
+    if (event.target === instructions) {
+      instructions.style.display = "none";
+    } else if (event.target === pause) {
+      pause.style.display = "none";
+    }
+  };
+};
+
+exports.default = registerListeners;
 
 /***/ })
 /******/ ]);
