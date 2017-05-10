@@ -23,7 +23,7 @@ class Projectile {
     this.y_velocity = (Math.random() * 10) + 33;
   }
 
-  tick(event) {
+  tick() {
     this.time += 25;
 
     const pinata = this.pinata;
@@ -37,7 +37,7 @@ class Projectile {
       this.delete();
     }
 
-    this.stage.update(event);
+    this.stage.update();
   }
 
   delete() {
