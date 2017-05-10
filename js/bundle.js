@@ -155,15 +155,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Projectile = function () {
-  function Projectile(canvas, stage, score, stats) {
+  function Projectile(canvas, stage, score, stats, currentPTickers) {
     _classCallCheck(this, Projectile);
 
     this.canvas = canvas;
     this.stage = stage;
+    this.currentPTickers = currentPTickers;
+
     this.tick = this.tick.bind(this);
     this.delete = this.delete.bind(this);
+    this.setMotion = this.setMotion.bind(this);
 
-    this.interval = setInterval(this.tick, 25);
+    this.setMotion();
     this.time = 0;
 
     this.PinataClass = new _pinata2.default(canvas, stage, score, stats);
@@ -181,8 +184,13 @@ var Projectile = function () {
       this.y_velocity = Math.random() * 10 + 33;
     }
   }, {
+    key: 'setMotion',
+    value: function setMotion() {
+      this.interval = setInterval(this.tick, 25);
+    }
+  }, {
     key: 'tick',
-    value: function tick(event) {
+    value: function tick() {
       this.time += 25;
 
       var pinata = this.pinata;
@@ -196,12 +204,18 @@ var Projectile = function () {
         this.delete();
       }
 
-      this.stage.update(event);
+      this.stage.update();
     }
   }, {
     key: 'delete',
     value: function _delete() {
+      var _this = this;
+
       this.PinataClass.deletePinata(this.pinata, this.interval);
+      var keys = Object.keys(this.currentPTickers);
+      this.currentPTickers = keys.filter(function (a) {
+        return a !== _this.interval;
+      });
     }
   }]);
 
@@ -254,6 +268,7 @@ var Game = function () {
     this.timer = new _timer2.default(stage);
     this.score = new _score2.default(stage, this.timer);
     this.stats = new _stats2.default(stage);
+    this.currentPTickers = {};
 
     this.start = this.start.bind(this);
     this.generatePinatas = this.generatePinatas.bind(this);
@@ -265,6 +280,8 @@ var Game = function () {
     key: 'start',
     value: function start(time) {
       var _this = this;
+
+      // createjs.Ticker.addEventListener("tick", this.generatePinatas);
 
       this.beginGame = setInterval(this.generatePinatas, 2000);
       this.timer.start();
@@ -286,7 +303,8 @@ var Game = function () {
     value: function generatePinatas() {
       var numPinatas = Math.random() * 4 + 1;
       for (var i = 0; i < numPinatas; i++) {
-        new _projectile2.default(this.canvas, this.stage, this.score, this.stats);
+        var p = new _projectile2.default(this.canvas, this.stage, this.score, this.stats, this.currentPTickers);
+        this.currentPTickers[p.interval] = p;
       }
     }
   }, {
@@ -305,7 +323,19 @@ var Game = function () {
     value: function pause() {
       clearInterval(this.beginGame);
       clearInterval(this.endTimer);
+      Object.keys(this.currentPTickers).forEach(function (int) {
+        return clearInterval(int);
+      });
       this.timer.pause();
+    }
+  }, {
+    key: 'unpause',
+    value: function unpause(time) {
+      var pinatas = Object.values(this.currentPTickers);
+      pinatas.forEach(function (pinata) {
+        return pinata.setMotion();
+      });
+      this.start(time);
     }
   }]);
 
@@ -380,8 +410,7 @@ var Pause = function () {
       this.stage.removeChild(this.play);
       this.stage.addChild(this.pause);
       this.paused = false;
-      console.log(this.game.timer.timeLeft);
-      this.game.start(this.game.timer.timeLeft * 1000);
+      this.game.unpause(this.game.timer.timeLeft * 1000);
     }
   }]);
 

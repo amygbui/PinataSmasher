@@ -41,8 +41,7 @@ class Pause {
     this.stage.removeChild(this.play);
     this.stage.addChild(this.pause);
     this.paused = false;
-    console.log(this.game.timer.timeLeft);
-    this.game.start(this.game.timer.timeLeft * 1000);
+    this.game.unpause(this.game.timer.timeLeft * 1000);
   }
 }
 
