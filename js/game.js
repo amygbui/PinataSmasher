@@ -13,6 +13,7 @@ class Game {
     this.score = new Score(stage, this.timer);
     this.stats = new Stats(stage);
     this.currentPTickers = {};
+    this.started = false;
 
     this.start = this.start.bind(this);
     this.generatePinatas = this.generatePinatas.bind(this);
@@ -21,6 +22,7 @@ class Game {
   }
 
   start(time) {
+    this.started = true;
     this.beginGame = setInterval(this.generatePinatas, 2000);
     this.timer.start();
     this.stage.addChild(pause);
@@ -48,6 +50,7 @@ class Game {
   }
 
   end() {
+    this.started = false;
     this.score.reset();
     this.stats.reset();
     this.timer.reset();

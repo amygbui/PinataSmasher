@@ -9,11 +9,21 @@ const registerListeners = (pause) => {
   instrBtn.onclick = () => {
     modal.style.display = "flex";
     instructions.style.display = "block";
+
+    if (pause.game.started) {
+      pause.pauseGame();
+    }
+
+    console.log(pause.game.started);
   }
 
   close.onclick = () => {
     if (!pause.paused) {
       modal.style.display = "none";
+    }
+
+    if (pause.game.started) {
+      pause.unpauseGame();
     }
 
     instructions.style.display = "none";
@@ -32,10 +42,7 @@ const registerListeners = (pause) => {
         pause.unpauseGame();
         playBtn.style.display = "none";
       }
-    } //else if (event.target === pauseModal) {
-    //   pauseModal.style.display = "none";
-    //   pause.unpauseGame();
-    // }
+    }
   }
 }
 
