@@ -400,7 +400,8 @@ var Pause = function () {
       // this.stage.addChild(this.play);
       this.paused = true;
       this.game.pause();
-      document.getElementById('pauseModal').style.display = "flex";
+      document.getElementById('modal').style.display = "flex";
+      document.getElementById('playBtn').style.display = "block";
     }
   }, {
     key: 'unpauseGame',
@@ -409,7 +410,7 @@ var Pause = function () {
       this.stage.addChild(this.pause);
       this.paused = false;
       this.game.unpause(this.game.timer.timeLeft * 1000);
-      // document.getElementById('pauseModal').style.display = "none";
+      document.getElementById('modal').style.display = "none";
     }
   }]);
 
@@ -840,36 +841,43 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var registerListeners = function registerListeners(pause) {
+  var modal = document.getElementById('modal');
   var instructions = document.getElementById('instructions');
   var instrBtn = document.getElementById('instrBtn');
   var close = document.getElementById('close');
-  var pauseModal = document.getElementById('pauseModal');
+  // const pauseModal = document.getElementById('pauseModal');
   var playBtn = document.getElementById('playBtn');
 
   instrBtn.onclick = function () {
-    instructions.style.display = "flex";
+    modal.style.display = "flex";
+    instructions.style.display = "block";
   };
 
   close.onclick = function () {
+    if (!pause.paused) {
+      modal.style.display = "none";
+    }
+
     instructions.style.display = "none";
   };
 
-  pauseModal.onclick = function () {
-    pauseModal.style.display = "none";
-  };
-
   playBtn.onclick = function () {
-    pauseModal.style.display = "none";
+    modal.style.display = "none";
     pause.unpauseGame();
   };
 
   window.onclick = function (event) {
-    if (event.target === instructions) {
-      instructions.style.display = "none";
-    } else if (event.target === pauseModal) {
-      pauseModal.style.display = "none";
-      pause.unpauseGame();
-    }
+    if (event.target === modal) {
+      modal.style.display = "none";
+
+      if (pause.paused) {
+        pause.unpauseGame();
+        playBtn.style.display = "none";
+      }
+    } //else if (event.target === pauseModal) {
+    //   pauseModal.style.display = "none";
+    //   pause.unpauseGame();
+    // }
   };
 };
 

@@ -35,7 +35,8 @@ class Pause {
     // this.stage.addChild(this.play);
     this.paused = true;
     this.game.pause();
-    document.getElementById('pauseModal').style.display = "flex";
+    document.getElementById('modal').style.display = "flex";
+    document.getElementById('playBtn').style.display = "block";
   }
 
   unpauseGame() {
@@ -43,7 +44,7 @@ class Pause {
     this.stage.addChild(this.pause);
     this.paused = false;
     this.game.unpause(this.game.timer.timeLeft * 1000);
-    // document.getElementById('pauseModal').style.display = "none";
+    document.getElementById('modal').style.display = "none";
   }
 }
 
