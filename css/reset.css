@@ -47,10 +47,8 @@ h1 {
 }
 
 div {
-  /*position: relative;*/
   margin-top: 20px;
   display: flex;
-  /*flex-direction: column;*/
   justify-content: center;
 }
 
@@ -80,8 +78,18 @@ article {
   left: 600px;
 }
 
-#instructions, #pause {
+#instructions, #pauseModal {
   display: none;
+}
+
+#playBtn {
+  position: absolute;
+  display: block;
+  background: transparent;
+  width: 53px;
+  height: 53px;
+  top: 675px;
+  left: 16px;
 }
 
 #pinata {

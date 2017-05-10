@@ -379,7 +379,7 @@ var Pause = function () {
   }
 
   _createClass(Pause, [{
-    key: "addClick",
+    key: 'addClick',
     value: function addClick(button) {
       var _this = this;
 
@@ -394,20 +394,22 @@ var Pause = function () {
       });
     }
   }, {
-    key: "pauseGame",
+    key: 'pauseGame',
     value: function pauseGame() {
       this.stage.removeChild(this.pause);
-      this.stage.addChild(this.play);
+      // this.stage.addChild(this.play);
       this.paused = true;
       this.game.pause();
+      document.getElementById('pauseModal').style.display = "flex";
     }
   }, {
-    key: "unpauseGame",
+    key: 'unpauseGame',
     value: function unpauseGame() {
-      this.stage.removeChild(this.play);
+      // this.stage.removeChild(this.play);
       this.stage.addChild(this.pause);
       this.paused = false;
       this.game.unpause(this.game.timer.timeLeft * 1000);
+      // document.getElementById('pauseModal').style.display = "none";
     }
   }]);
 
@@ -622,7 +624,7 @@ document.addEventListener('DOMContentLoaded', function () {
     game.start(61000);
   });
 
-  (0, _modal2.default)();
+  (0, _modal2.default)(pause);
 });
 
 /***/ }),
@@ -837,10 +839,12 @@ exports.default = Timer;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var registerListeners = function registerListeners() {
+var registerListeners = function registerListeners(pause) {
   var instructions = document.getElementById('instructions');
   var instrBtn = document.getElementById('instrBtn');
   var close = document.getElementById('close');
+  var pauseModal = document.getElementById('pauseModal');
+  var playBtn = document.getElementById('playBtn');
 
   instrBtn.onclick = function () {
     instructions.style.display = "flex";
@@ -850,17 +854,21 @@ var registerListeners = function registerListeners() {
     instructions.style.display = "none";
   };
 
-  // const pause = document.getElementById('pause');
-  //
-  // pause.onclick = () => {
-  //   pause.style.display = "flex";
-  // }
+  pauseModal.onclick = function () {
+    pauseModal.style.display = "none";
+  };
+
+  playBtn.onclick = function () {
+    pauseModal.style.display = "none";
+    pause.unpauseGame();
+  };
 
   window.onclick = function (event) {
     if (event.target === instructions) {
       instructions.style.display = "none";
-    } else if (event.target === pause) {
-      pause.style.display = "none";
+    } else if (event.target === pauseModal) {
+      pauseModal.style.display = "none";
+      pause.unpauseGame();
     }
   };
 };

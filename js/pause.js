@@ -32,16 +32,18 @@ class Pause {
 
   pauseGame() {
     this.stage.removeChild(this.pause);
-    this.stage.addChild(this.play);
+    // this.stage.addChild(this.play);
     this.paused = true;
     this.game.pause();
+    document.getElementById('pauseModal').style.display = "flex";
   }
 
   unpauseGame() {
-    this.stage.removeChild(this.play);
+    // this.stage.removeChild(this.play);
     this.stage.addChild(this.pause);
     this.paused = false;
     this.game.unpause(this.game.timer.timeLeft * 1000);
+    // document.getElementById('pauseModal').style.display = "none";
   }
 }
 

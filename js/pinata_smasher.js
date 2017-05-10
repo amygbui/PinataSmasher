@@ -30,5 +30,5 @@ document.addEventListener('DOMContentLoaded', () => {
     game.start(61000);
   });
 
-  registerListeners();
+  registerListeners(pause);
 });
