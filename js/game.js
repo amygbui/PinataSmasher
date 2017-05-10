@@ -21,8 +21,6 @@ class Game {
   }
 
   start(time) {
-    // createjs.Ticker.addEventListener("tick", this.generatePinatas);
-
     this.beginGame = setInterval(this.generatePinatas, 2000);
     this.timer.start();
     this.stage.addChild(pause);
@@ -35,7 +33,7 @@ class Game {
       this.end();
       resize(start, pinataHitPercentage, presentHitPercentage);
       this.stage.addChild(
-        start, restart, //pause,
+        start, restart,
         pinataHitPercentage, presentHitPercentage
       );
     }, time);

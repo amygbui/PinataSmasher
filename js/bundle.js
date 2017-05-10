@@ -281,8 +281,6 @@ var Game = function () {
     value: function start(time) {
       var _this = this;
 
-      // createjs.Ticker.addEventListener("tick", this.generatePinatas);
-
       this.beginGame = setInterval(this.generatePinatas, 2000);
       this.timer.start();
       this.stage.addChild(_text.pause);
@@ -290,7 +288,6 @@ var Game = function () {
 
       this.endTimer = setTimeout(function () {
         _text.start.text = 'Game over! Your score was ' + _this.score.score;
-        //pause,
         _text.pinataHitPercentage.text = 'Pinatas Hit: ' + _this.stats.pinataHitPercentage() + '%';
         _text.presentHitPercentage.text = 'Presents Avoided: ' + (100 - _this.stats.presentHitPercentage()) + '%';
         _this.end();
