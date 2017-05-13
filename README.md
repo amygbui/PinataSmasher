@@ -1,33 +1,23 @@
 # Piñata Smasher
-Piñata Smasher is an interactive piñata-smashing game with one objective: smash as many piñata as you can and stock up on candy. In short, it's the greatest piñata smashing game in the world.
 
-## Functionality and MVP
-Users will be able to:
-* Start, pause, and replay game
-* Smash as many piñatas as they can while avoiding bombs
-    * Game is immediately over if they accidentally smash a bomb
-    * If the piñata crosses halfway over from the screen, they lose a life.
-        * Game is over after losing all 3 lives
-* Earn candy (points) for every piñata smashed
+[Play Piñata Smasher](https://amygbui.github.io/PinataSmasher/)
 
-## Architecture and Technologies
-* Javascript
-* Create.js
-* Animate.css
-* Canvas
-* Webpack
 
-## Design Documents
-[View Wireframes](https://github.com/amygbui/pinata_smasher/tree/master/wireframes)
+Piñata Smasher is an interactive piñata-smashing game with one objective: smash as many piñatas as you can and stock up on candy. Inspired by Fruit Ninja, Piñata Smasher is built using Javascript, HTML5 Canvas, and CreateJS libraries to create an interactive game with intuitive user controls, smooth animations, and fun sound effects.
 
-## Implementation Timeline
-Wednesday: Finish up fleshing out ideas/wireframes. Finish research libraries and get artwork. Learn more about Canvas and Create.js. Set up game board on screen and get piñata to render on top of screen.
+## How to Play
+Click anywhere to start the timer, and then start smashing! Run your mouse over the flying piñatas. If you hit them just right, POP goes the piñata and out comes the candy. Whatever you do, don't hit the presents! It would be such a terrible end to the day if all the lovely presents were destroyed :(
 
-Thursday: Implement piñatas moving in all directions and with curvature. Add event listeners to pinatas and incorporate exploding pinata function.
+You've got 60 seconds... Ready... Set... GO!!!
 
-Friday: Add point scoring logic and game over/life lost.
+## Libraries/Assets
+* [HTML5 Canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
+* [CreateJS](http://createjs.com/)
+* [Graphics by Genie](www.instagram.com/genieart)
 
-Saturday: Add sound effects. Perfect graphics and clean up code.
+## Features
 
-## Credits
-Game Background Image: [Genie](www.instagram.com/genieart)
+
+## Future Directions
+* [ ] Persisting high scores table (ideally with Node.js)
+* [ ] Different speeds/difficulty settings
