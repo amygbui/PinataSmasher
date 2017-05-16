@@ -1,3 +1,5 @@
+import { yikes, beCareful } from './text';
+
 const pinataImages = {
   0: './images/pinata.png',
   1: './images/pinata2.png',
@@ -10,8 +12,8 @@ const pinataImages = {
 const droppedCandies = {
   0: './images/candy1.png',
   1: './images/candy2.png',
-  2: './images/candy2.png',
-  3: './images/candy1.png'
+  2: './images/candy3.png',
+  3: './images/candy4.png'
 }
 
 class Pinata {
@@ -22,13 +24,19 @@ class Pinata {
     this.stats = stats;
 
     this.generatePinata = this.generatePinata.bind(this);
+    this.pinataReaction = this.pinataReaction.bind(this);
+    this.addListener = this.addListener.bind(this);
+
     this.smashPinata = this.smashPinata.bind(this);
     this.dropCandy = this.dropCandy.bind(this);
     this.deletePinata = this.deletePinata.bind(this);
+
+    const dirs = [1, -1];
+    this.direction = dirs[Math.floor(Math.random() * 2)];
   }
 
   generatePinata(interval) {
-    const randomKey = Math.round(Math.random() * 6);
+    const randomKey = Math.floor(Math.random() * 6);
     const pinata = new createjs.Bitmap(pinataImages[randomKey]);
 
     if (randomKey === 4 || randomKey === 5) {
@@ -45,35 +53,44 @@ class Pinata {
 
     pinata.x = Math.round(Math.random() * this.canvas.width);
     pinata.y = 800;
+    pinata.rotation = Math.random() * 360;
     this.stage.addChild(this.pinata);
 
+    this.addListener(pinata, interval);
+    return pinata;
+  }
+
+  addListener(pinata, interval) {
     pinata.addEventListener("mouseover", () => {
-      this.score.updateScore(pinata.type);
+      const type = pinata.type
+      const sound = this.music(type);
+      sound.currentTime = 0;
+      sound.play();
 
-      if (pinata.type === "pinata") {
-        this.smashPinata(pinata);
-        this.dropCandy(pinata);
-        this.stats.increaseHitPinatas();
-        const sound = new Audio('./sounds/pop.mp3');
-        sound.currentTime = 0;
-        sound.play();
-      } else if (pinata.type === "bomb") {
-        this.stats.increaseHitPresents();
-        const boom = new createjs.Bitmap('./images/ouch.png');
-        boom.x = 150;
-        boom.y = 210;
-        this.stage.addChild(boom);
-        setTimeout(() => this.stage.removeChild(boom), 1500);
-        const sound = new Audio('./sounds/clang.mp3')
-        sound.currentTime = 0;
-        sound.play();
-      }
-
+      this.pinataReaction(pinata, type);
       this.deletePinata(pinata, interval);
       this.stage.update();
     });
+  }
 
-    return pinata;
+  music(type) {
+    const pinataSound = new Audio('./sounds/pop.mp3');
+    const presentSound = new Audio('./sounds/clang.mp3');
+    return type === "pinata" ? pinataSound : presentSound;
+  }
+
+  pinataReaction(pinata, type) {
+    this.score.updateScore(type);
+
+    if (type === "pinata") {
+      this.smashPinata(pinata);
+      this.dropCandy(pinata);
+      this.stats.increaseHitPinatas();
+    } else if (type === "bomb") {
+      this.stats.increaseHitPresents();
+      this.stage.addChild(yikes, beCareful);
+      setTimeout(() => this.stage.removeChild(yikes, beCareful), 1500);
+    }
   }
 
   smashPinata(pinata) {
@@ -85,11 +102,10 @@ class Pinata {
   }
 
   dropCandy(pinata) {
-    const randomKey = Math.round(Math.random() * 4);
+    const randomKey = Math.floor(Math.random() * 4);
     const droppedCandy = new createjs.Bitmap(droppedCandies[randomKey]);
     droppedCandy.x = pinata.x;
-    droppedCandy.y = (Math.random() * 30) + 700;
-    // Fix dropped candy heights once candy images come in
+    droppedCandy.y = (Math.random() * 30) + 680;
     this.stage.addChild(droppedCandy);
   }
 

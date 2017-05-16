@@ -1,8 +1,10 @@
- import Projectile from './projectile';
+import Projectile from './projectile';
+import { pause } from './text';
 
 class Score {
-  constructor(stage) {
+  constructor(stage, timer) {
     this.stage = stage;
+    this.timer = timer;
     this.score = 0;
     this.fixWidth = this.fixWidth.bind(this);
     this.updateScore = this.updateScore.bind(this);
@@ -25,7 +27,7 @@ class Score {
     } else {
       this.score -= 50;
       this.stage.removeAllChildren();
-      this.stage.addChild(this.scoreText);
+      this.stage.addChild(this.scoreText, this.timer.time, pause);
     }
 
     this.scoreText.text = `Score: ${this.score}`;
@@ -34,6 +36,7 @@ class Score {
 
   reset() {
     this.score = 0;
+    this.scoreText.text = `Score: ${this.score}`;
   }
 }
 

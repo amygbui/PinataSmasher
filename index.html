@@ -11,21 +11,30 @@
 
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <script src="./bundle.js"></script>
+    <script src="./js/bundle.js"></script>
   </head>
 
   <body>
+    <button id="instrBtn">Instructions</button><br \>
     <div>
-      <section>
-        <h1>Instructions</h1>
-        Gather 'round all you candy lovers! It's time to play Piñata Smasher!<br /><br />
+      <section id="modal">
+        <article id="instructions">
+          <span id="close">&times;</span>
 
-        The rules are simple:<br />
-        try to hit as many piñatas as you can, but don't destroy any of the birthday presents!<br /><br />
+          <h1>Instructions</h1>
+          Gather 'round all you candy lovers! It's time to play Piñata Smasher!<br /><br />
 
-        You've got 60 seconds. Ready... Set... GO!
+          The rules are simple:<br />
+          try to hit as many piñatas as you can, but don't destroy any of the birthday presents!<br /><br />
+
+          You've got 60 seconds.<br />
+          Ready... Set... GO!
+        </article>
+        <img src="./images/play.png" id="playBtn" />
       </section>
       <canvas id="pinata" width=900px height=760px></canvas>
+      <!-- <section id="pauseModal">
+      </section> -->
     </div>
     <footer class="contact">
       <ul>
@@ -46,7 +55,7 @@
         </li>
         <li>
           <a href="https://angel.co/amy-bui-2">
-            <i class="fa fa-folder" aria-hidden="true"></i> Angel's List
+            <i class="fa fa-folder" aria-hidden="true"></i> Angel List
           </a>
         </li>
       </ul>
