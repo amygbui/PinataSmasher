@@ -43,4 +43,3 @@ Like true projectile objects, the piñata's/present's x-velocity stays constant 
 ## Future Directions
 * [ ] Persisting high scores table (ideally with Node.js)
 * [ ] Different speeds/difficulty settings
->>>>>>> gh-pages
