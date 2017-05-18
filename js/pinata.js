@@ -52,7 +52,7 @@ class Pinata {
     pinata.hitArea = hit;
 
     pinata.x = Math.round(Math.random() * this.canvas.width);
-    pinata.y = 800;
+    pinata.y = 820;
     pinata.rotation = Math.random() * 360;
     this.stage.addChild(this.pinata);
 

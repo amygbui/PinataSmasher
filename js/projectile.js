@@ -1,10 +1,11 @@
 import Pinata from './pinata';
 
 class Projectile {
-  constructor(canvas, stage, score, stats, currentPTickers) {
+  constructor(canvas, stage, score, stats, currentPTickers, timer) {
     this.canvas = canvas;
     this.stage = stage;
     this.currentPTickers = currentPTickers;
+    this.timer = timer;
 
     this.tick = this.tick.bind(this);
     this.delete = this.delete.bind(this);
@@ -22,8 +23,19 @@ class Projectile {
   }
 
   setVelocity() {
-    this.x_velocity = Math.random() * 12 * this.xDirection;
     this.y_velocity = (Math.random() * 10) + 33;
+    this.x_velocity = Math.random() * 12 * this.xDirection;
+    this.fallRate = 30;
+
+    if (this.timer.timeLeft < 20) {
+      this.y_velocity += 20;
+      this.x_velocity += (4 * this.xDirection);
+      this.fallRate = 53;
+    } else if (this.timer.timeLeft < 40) {
+      this.y_velocity += 15;
+      this.x_velocity += (2 * this.xDirection);
+      this.fallRate = 45;
+    }
   }
 
   setMotion() {
@@ -35,12 +47,13 @@ class Projectile {
 
     const pinata = this.pinata;
     const time = (this.time) / 1000;
+    const movement = this.fallRate * time
 
-    pinata.y = pinata.y - (time * (this.y_velocity - (30 * time)));
+    pinata.y = pinata.y - (time * (this.y_velocity - (movement)));
     pinata.x = pinata.x + this.x_velocity;
-    pinata.rotation += 3 * this.xDirection;
+    pinata.rotation += 3.5 * this.xDirection;
 
-    if (pinata.y > 800) {
+    if (pinata.y > 820) {
       this.delete();
     }
 

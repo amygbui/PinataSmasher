@@ -155,12 +155,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Projectile = function () {
-  function Projectile(canvas, stage, score, stats, currentPTickers) {
+  function Projectile(canvas, stage, score, stats, currentPTickers, timer) {
     _classCallCheck(this, Projectile);
 
     this.canvas = canvas;
     this.stage = stage;
     this.currentPTickers = currentPTickers;
+    this.timer = timer;
 
     this.tick = this.tick.bind(this);
     this.delete = this.delete.bind(this);
@@ -180,8 +181,19 @@ var Projectile = function () {
   _createClass(Projectile, [{
     key: 'setVelocity',
     value: function setVelocity() {
-      this.x_velocity = Math.random() * 12 * this.xDirection;
       this.y_velocity = Math.random() * 10 + 33;
+      this.x_velocity = Math.random() * 12 * this.xDirection;
+      this.fallRate = 30;
+
+      if (this.timer.timeLeft < 20) {
+        this.y_velocity += 20;
+        this.x_velocity += 4 * this.xDirection;
+        this.fallRate = 53;
+      } else if (this.timer.timeLeft < 40) {
+        this.y_velocity += 15;
+        this.x_velocity += 2 * this.xDirection;
+        this.fallRate = 45;
+      }
     }
   }, {
     key: 'setMotion',
@@ -195,12 +207,13 @@ var Projectile = function () {
 
       var pinata = this.pinata;
       var time = this.time / 1000;
+      var movement = this.fallRate * time;
 
-      pinata.y = pinata.y - time * (this.y_velocity - 30 * time);
+      pinata.y = pinata.y - time * (this.y_velocity - movement);
       pinata.x = pinata.x + this.x_velocity;
-      pinata.rotation += 3 * this.xDirection;
+      pinata.rotation += 3.5 * this.xDirection;
 
-      if (pinata.y > 800) {
+      if (pinata.y > 820) {
         this.delete();
       }
 
@@ -302,7 +315,7 @@ var Game = function () {
     value: function generatePinatas() {
       var numPinatas = Math.random() * 4 + 1;
       for (var i = 0; i < numPinatas; i++) {
-        var p = new _projectile2.default(this.canvas, this.stage, this.score, this.stats, this.currentPTickers);
+        var p = new _projectile2.default(this.canvas, this.stage, this.score, this.stats, this.currentPTickers, this.timer);
         this.currentPTickers[p.interval] = p;
       }
     }
@@ -555,7 +568,7 @@ var Pinata = function () {
       pinata.hitArea = hit;
 
       pinata.x = Math.round(Math.random() * this.canvas.width);
-      pinata.y = 800;
+      pinata.y = 820;
       pinata.rotation = Math.random() * 360;
       this.stage.addChild(this.pinata);
 

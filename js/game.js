@@ -44,7 +44,9 @@ class Game {
   generatePinatas() {
     const numPinatas = (Math.random() * 4) + 1;
     for (let i = 0; i < numPinatas; i++) {
-      const p = new Projectile(this.canvas, this.stage, this.score, this.stats, this.currentPTickers);
+      const p = new Projectile(
+        this.canvas, this.stage, this.score, this.stats,
+        this.currentPTickers, this.timer);
       this.currentPTickers[p.interval] = p;
     }
   }
