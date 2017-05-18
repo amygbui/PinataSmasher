@@ -323,7 +323,6 @@ var Game = function () {
     key: 'end',
     value: function end() {
       this.started = false;
-      // this.score.reset();
       this.stats.reset();
       this.timer.reset();
 
