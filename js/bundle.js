@@ -323,7 +323,7 @@ var Game = function () {
     key: 'end',
     value: function end() {
       this.started = false;
-      this.score.reset();
+      // this.score.reset();
       this.stats.reset();
       this.timer.reset();
 
@@ -698,6 +698,7 @@ document.addEventListener('DOMContentLoaded', function () {
   _text.start.addEventListener("click", function (e) {
     stage.removeChild(_text.start, _text.restart, _text.pinataHitPercentage, _text.presentHitPercentage);
     _text.restart.text = "(Click anywhere to restart)";
+    score.reset();
     game.start(61000);
   });
 

@@ -53,7 +53,7 @@ class Game {
 
   end() {
     this.started = false;
-    this.score.reset();
+    // this.score.reset();
     this.stats.reset();
     this.timer.reset();
 
