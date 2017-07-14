@@ -16,6 +16,12 @@ You've got 60 seconds... Ready... Set... GO!!!
 * [Graphics by Genie](www.instagram.com/genieart)
 
 ## Features
+* Timer
+* Score
+* Pause/Play Button
+* Sound effects
+
+## Implementation
 All moving objects in the game (pinatas and presents) are treated as projectiles. When the projectile object is first initialized, it is given a random internal x- and y-velocity. Every 25 milliseconds, its internal velocity (and thus its position on the canvas) is updated with respect to the time elapsed.
 
 ``` javascript
@@ -38,7 +44,7 @@ updateVelocity() {
 }
 ```
 
-Like true projectile objects, the piñata's/present's x-velocity stays constant throughout its entire life cycle on the canvas. In order to create better gameplay, however, the speed at which the projectile falls vertically had to be modified. 
+Like true projectile objects, the piñata's/present's x-velocity stays constant throughout its entire life cycle on the canvas. In order to create better gameplay, however, the speed at which the projectile falls vertically had to be modified.
 
 ## Future Directions
 * [ ] Persisting high scores table (ideally with Node.js)
